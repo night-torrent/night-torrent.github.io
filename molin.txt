@@ -1,4 +1,5 @@
-<html>
+<body>
+<SCRIPT>
 <FONT color=#009900><body>    
     
 <!--     
@@ -63,8 +64,3 @@ chplay()
 -->     
 </SCRIPT>    
 </body>
-</FONT>
-<FONT color=#009900></FONT> 
-<FONT color=#009900></FONT> 
-<FONT color=#009900></FONT>
-</html>
