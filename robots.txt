@@ -1,4 +1,4 @@
-User-agent: * Allow: /
+User-agent: *
 Allow: /
 Disallow: /js/
 Disallow: /css/
