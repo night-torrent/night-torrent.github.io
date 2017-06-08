@@ -180,7 +180,7 @@ th {
   padding: 0;
 }
 ::selection {
-  background: #93f;
+  background: #00cd00;
   color: #fff;
 }
 body {
@@ -277,7 +277,7 @@ p {
   margin: 0 0 25px 0;
 }
 a {
-  color: #93f;
+  color: #00cd00;
   text-decoration: none;
   border-bottom: 1px solid #999;
   word-wrap: break-word;
@@ -305,7 +305,7 @@ hr {
 }
 blockquote {
   padding: 0 15px;
-  color: #93f;
+  color: #00cd00;
   border-left: 4px solid #ddd;
 }
 blockquote cite::before {
@@ -932,7 +932,7 @@ pre .javascript .function {
   z-index: 1050;
   padding: 0 6px;
   width: 24px;
-  background: #93f;
+  background: #00cd00;
   font-size: 12px;
   opacity: 1;
   color: #fff;
@@ -980,12 +980,12 @@ pre .javascript .function {
   position: relative;
   display: inline-block;
   padding: 0 40px;
-  color: #93f;
+  color: #00cd00;
   background: #ff2a2a;
   border-bottom: none;
 }
 .brand:hover {
-  color: #93f;
+  color: #00cd00;
 }
 .logo {
   display: inline-block;
@@ -1283,7 +1283,7 @@ pre .javascript .function {
   transition-property: background;
 }
 .posts-collapse .post-header:hover {
-  border-bottom-color: #93f;
+  border-bottom-color: #00cd00;
 }
 .posts-collapse .post-header:hover::before {
   background: #222;
@@ -1308,7 +1308,7 @@ pre .javascript .function {
   opacity: 0.6;
 }
 .posts-collapse .post-title a {
-  color: #93f;
+  color: #00cd00;
   border-bottom: none;
 }
 .page-home .post-type-quote .post-header,
@@ -1442,7 +1442,7 @@ pre .javascript .function {
   margin-top: 50px;
 }
 .post-button .btn {
-  color: #93f;
+  color: #00cd00;
   font-size: 14px;
   background: transparent;
   border-radius: 0;
@@ -1483,7 +1483,7 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #93f;
+  color: #00cd00;
   border-bottom: none;
 }
 .post-nav-item a:hover {
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #0b66f5;
+  background: #9c2eff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1757,7 +1757,7 @@ pre .javascript .function {
 }
 .post-toc-empty {
   font-size: 14px;
-  color: #93f;
+  color: #00cd00;
 }
 .post-toc-wrap {
   overflow: hidden;
@@ -2712,10 +2712,10 @@ hr {
   margin: 0 8px 8px 0 !important;
   padding: 0;
   font-size: 14px;
-  color: #93f;
+  color: #00cd00;
   background: none;
   border: none;
-  border-bottom: 2px solid #93f;
+  border-bottom: 2px solid #00cd00;
   transition-property: border;
 }
 @media (max-width: 767px) {
@@ -2783,7 +2783,7 @@ hr {
   margin-top: 80px;
   padding: 10px 0;
   background: #000;
-  color: #93f;
+  color: #00cd00;
 }
 .footer-inner {
   margin: 0 auto;
@@ -2823,4 +2823,8 @@ pre {
 code,
 pre {
   border: 1px solid #d6d6d6;
+}
+@font-face {
+  font-family: Yellowtail;
+  src: url("/fonts/Yellowtail.otf");
 }
