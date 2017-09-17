@@ -283,7 +283,7 @@ a {
   word-wrap: break-word;
 }
 a:hover {
-  color: #c6e2ff;
+  color: #000;
   border-bottom-color: #c6e2ff;
 }
 blockquote {
@@ -1487,7 +1487,7 @@ pre .javascript .function {
   border-bottom: none;
 }
 .post-nav-item a:hover {
-  color: #c6e2ff;
+  color: #000;
   border-bottom: none;
 }
 .post-nav-item a:active {
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6b05ee;
+  background: #0d95a2;
 }
 .links-of-blogroll {
   font-size: 13px;
