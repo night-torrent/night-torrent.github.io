@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fcff18;
+  background: #75176a;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2815,6 +2815,7 @@ code {
 }
 .highlight,
 pre {
+  color: #000;
   margin: 5px 0;
   padding: 5px;
   border-radius: 3px;
@@ -2822,7 +2823,7 @@ pre {
 .highlight,
 code,
 pre {
-  border: 1px solid #d6d6d6;
+  border: 1px solid #000;
 }
 @font-face {
   font-family: Yellowtail;
