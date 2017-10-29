@@ -3,10 +3,9 @@
 
 
     
-    
   <url>
     <loc>http://nt0rrent.xyz/2017/10/29/typecho/</loc>
-    <lastmod>2017-10-29T17:20:24.073Z</lastmod>
+    <lastmod>2017-10-29T17:28:04.674Z</lastmod>
     <data>
         <display>
         <title>typecho反序列化漏洞复现</title>
@@ -18,6 +17,7 @@
     </data>
     </url>
 
+    
     
     
 </urlset>
