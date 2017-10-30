@@ -4,5 +4,5 @@ Disallow: /js/
 Disallow: /css/
 Disallow: /lib/
 Disallow: /images/
-Sitemap: http://nt0rrent.xyz/sitemap.xml
-Sitemap: http://nt0rrent.xyz/baidusitemap.xml
+Sitemap: http://www.tharavel.site/sitemap.xml
+Sitemap: http://www.tharavel.site/baidusitemap.xml
