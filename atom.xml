@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://nt0rrent.xyz/"/>
+  <link href="http://www.tharavel.site/"/>
   <updated>2017-10-29T17:28:04.674Z</updated>
-  <id>http://nt0rrent.xyz/</id>
+  <id>http://www.tharavel.site/</id>
   
   <author>
     <name>tharavel</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>typecho反序列化漏洞复现</title>
-    <link href="http://nt0rrent.xyz/2017/10/29/typecho/"/>
-    <id>http://nt0rrent.xyz/2017/10/29/typecho/</id>
+    <link href="http://www.tharavel.site/2017/10/29/typecho/"/>
+    <id>http://www.tharavel.site/2017/10/29/typecho/</id>
     <published>2017-10-29T14:51:04.482Z</published>
     <updated>2017-10-29T17:28:04.674Z</updated>
     
