@@ -1,8 +1,8 @@
-User-agent: *
-Allow: /
+User-agent: * Allow: /
 Disallow: /js/
 Disallow: /css/
 Disallow: /lib/
 Disallow: /images/
+
 Sitemap: http://www.tharavel.site/sitemap.xml
 Sitemap: http://www.tharavel.site/baidusitemap.xml
