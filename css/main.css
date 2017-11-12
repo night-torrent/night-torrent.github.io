@@ -189,7 +189,7 @@ body {
   font-size: 14px;
   line-height: 2;
   color: #c6e2ff;
-  background: #222;
+  background: #1a6ea1;
 }
 @media (max-width: 767px) {
   body {
@@ -305,7 +305,7 @@ hr {
 }
 blockquote {
   padding: 0 15px;
-  color: #7ec0ee;
+  color: #1a6ea1;
   border-left: 4px solid #ddd;
 }
 blockquote cite::before {
@@ -980,12 +980,12 @@ pre .javascript .function {
   position: relative;
   display: inline-block;
   padding: 0 40px;
-  color: #7ec0ee;
+  color: #1a6ea1;
   background: #ff2a2a;
   border-bottom: none;
 }
 .brand:hover {
-  color: #7ec0ee;
+  color: #1a6ea1;
 }
 .logo {
   display: inline-block;
@@ -1283,7 +1283,7 @@ pre .javascript .function {
   transition-property: background;
 }
 .posts-collapse .post-header:hover {
-  border-bottom-color: #7ec0ee;
+  border-bottom-color: #1a6ea1;
 }
 .posts-collapse .post-header:hover::before {
   background: #222;
@@ -1308,7 +1308,7 @@ pre .javascript .function {
   opacity: 0.6;
 }
 .posts-collapse .post-title a {
-  color: #7ec0ee;
+  color: #1a6ea1;
   border-bottom: none;
 }
 .page-home .post-type-quote .post-header,
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c8ff6a;
+  background: #1778ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1757,7 +1757,7 @@ pre .javascript .function {
 }
 .post-toc-empty {
   font-size: 14px;
-  color: #7ec0ee;
+  color: #1a6ea1;
 }
 .post-toc-wrap {
   overflow: hidden;
@@ -2712,10 +2712,10 @@ hr {
   margin: 0 8px 8px 0 !important;
   padding: 0;
   font-size: 14px;
-  color: #7ec0ee;
+  color: #1a6ea1;
   background: none;
   border: none;
-  border-bottom: 2px solid #7ec0ee;
+  border-bottom: 2px solid #1a6ea1;
   transition-property: border;
 }
 @media (max-width: 767px) {
@@ -2783,7 +2783,7 @@ hr {
   margin-top: 80px;
   padding: 10px 0;
   background: #000;
-  color: #7ec0ee;
+  color: #1a6ea1;
 }
 .footer-inner {
   margin: 0 auto;
