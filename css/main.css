@@ -180,7 +180,7 @@ th {
   padding: 0;
 }
 ::selection {
-  background: #7ec0ee;
+  background: #4876ff;
   color: #fff;
 }
 body {
@@ -277,7 +277,7 @@ p {
   margin: 0 0 25px 0;
 }
 a {
-  color: #7ec0ee;
+  color: #4876ff;
   text-decoration: none;
   border-bottom: 1px solid #999;
   word-wrap: break-word;
@@ -932,7 +932,7 @@ pre .javascript .function {
   z-index: 1050;
   padding: 0 6px;
   width: 24px;
-  background: #7ec0ee;
+  background: #4876ff;
   font-size: 12px;
   opacity: 1;
   color: #fff;
@@ -1442,7 +1442,7 @@ pre .javascript .function {
   margin-top: 50px;
 }
 .post-button .btn {
-  color: #7ec0ee;
+  color: #4876ff;
   font-size: 14px;
   background: transparent;
   border-radius: 0;
@@ -1483,7 +1483,7 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #7ec0ee;
+  color: #4876ff;
   border-bottom: none;
 }
 .post-nav-item a:hover {
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #44eb34;
+  background: #094063;
 }
 .links-of-blogroll {
   font-size: 13px;
