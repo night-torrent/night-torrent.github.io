@@ -189,7 +189,7 @@ body {
   font-size: 14px;
   line-height: 2;
   color: #c6e2ff;
-  background: #1a6ea1;
+  background: #222;
 }
 @media (max-width: 767px) {
   body {
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #d5f962;
+  background: #1affc2;
 }
 .links-of-blogroll {
   font-size: 13px;
