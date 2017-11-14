@@ -88,7 +88,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="typecho反序列化漏洞复现">
-<meta property="og:url" content="http://www.tharavel.site/2017/10/29/typecho.html">
+<meta property="og:url" content="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
 <meta property="og:site_name" content="tharavel's blog">
 <meta property="og:description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
 <meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
@@ -128,7 +128,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-  <link rel="canonical" href="http://www.tharavel.site/2017/10/29/typecho.html"/>
+  <link rel="canonical" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html"/>
 
 
 
@@ -317,7 +317,7 @@ border-left-color: #A349A4; /*左边框颜色*/
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2017/10/29/typecho.html">
+    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tharavel">
@@ -372,7 +372,7 @@ border-left-color: #A349A4; /*左边框颜色*/
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/10/29/typecho.html#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/10/29/typecho-deserialization.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -626,11 +626,10 @@ border-left-color: #A349A4; /*左边框颜色*/
 <div class="theme-info">
   博客 -SEC
 </div>
-<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
-
-
  <a  class="theme-link"  href="http://hexo.io">Hexo</a> 知识分享
 <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+
 
         
 

@@ -17,8 +17,8 @@
   
   <entry>
     <title>typecho反序列化漏洞复现</title>
-    <link href="http://www.tharavel.site/2017/10/29/typecho.html"/>
-    <id>http://www.tharavel.site/2017/10/29/typecho.html</id>
+    <link href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html"/>
+    <id>http://www.tharavel.site/2017/10/29/typecho-deserialization.html</id>
     <published>2017-10-29T14:51:04.482Z</published>
     <updated>2017-11-03T07:51:02.685Z</updated>
     
