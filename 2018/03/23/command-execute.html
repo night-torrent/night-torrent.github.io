@@ -94,7 +94,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 <meta property="og:image" content="https://www.z4a.net/images/2018/01/31/image.png">
 <meta property="og:image" content="https://www.z4a.net/images/2018/01/31/imagedba0f9c8d575d043.md.png">
 <meta property="og:image" content="https://www.z4a.net/images/2018/01/31/te.png">
-<meta property="og:updated_time" content="2018-04-18T09:03:31.750Z">
+<meta property="og:updated_time" content="2018-04-18T09:06:09.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各种命令执行总结">
 <meta name="twitter:description" content="好久没更博客了，就把笔记里的东西整理一下发出来，里面还是有一些少见的trick的~本文持续更新~  首先说一个小trick:在渗透过程中，我们常常需要清理痕迹，而在history中会记录命令执行历史，我们可以清除history。也有一个简单方法使得在终端执行的命令不被记录，实现方法很简单，在执行的命令前添加空格即可，该方法仅限在debain内核的系统中。 0X01 linux命令执行如何判断是否是">
@@ -494,7 +494,6 @@ border-left-color: #A349A4; /*左边框颜色*/
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> commands</div><div class="line"><span class="keyword">print</span> commands.getoutput(<span class="string">'ls'</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pydoc</div><div class="line">pydoc.pipepager(<span class="keyword">None</span>,<span class="string">'id'</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">pickle.loads(<span class="string">"cos\nsystem\n(S'ifconfig'\ntR."</span>)</div></pre></td></tr></table></figure>
-<p>上面列举的模块有几个很少见，导致在CTF中或沙盒中经常没有被过滤，最典型的就是mimetool模块，我做题至今暂未遇到过滤了该模块的，可以说是十分好用了。</p>
 <p>当常见的os,subprocess,commands等被过滤时，除了可尝试用另外几个模块来实现命令执行外，也可灵活使用rot13编码绕过：<br><a href="https://www.z4a.net/image/YzPIa" target="_blank" rel="external"><img src="https://www.z4a.net/images/2018/01/31/imagedba0f9c8d575d043.md.png" alt="imagedba0f9c8d575d043.md.png"></a></p>
 <p>其中，有一点需要注意的是，subprocess中的shell如果shell=True的话，curl命令是被Bash(Sh)启动，所以支持shell语法。 如果shell=False的话，启动的是可执行程序本身，后面的参数不再支持shell语法(即执行的命令不能带有参数)。</p>
 <h4 id="pydoc更多玩法"><a href="#pydoc更多玩法" class="headerlink" title="pydoc更多玩法"></a>pydoc更多玩法</h4><p>当系统中PAGER环境变量被设置时，pydoc模块将使用该值作为导入文档，这一点可以被用来执行任意命令，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>py：</div><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="keyword">import</span> pydoc</div><div class="line">pydoc.pager(<span class="string">""</span>)</div></pre></td></tr></table></figure></p>
