@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tharavel.site/"/>
-  <updated>2018-04-14T14:23:22.114Z</updated>
+  <updated>2018-04-18T09:03:31.750Z</updated>
   <id>http://www.tharavel.site/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.tharavel.site/2018/03/23/command-execute.html"/>
     <id>http://www.tharavel.site/2018/03/23/command-execute.html</id>
     <published>2018-03-23T08:04:37.753Z</published>
-    <updated>2018-04-14T14:23:22.114Z</updated>
+    <updated>2018-04-18T09:03:31.750Z</updated>
     
     <content type="html"><![CDATA[<p>好久没更博客了，就把笔记里的东西整理一下发出来，里面还是有一些少见的trick的~<br>本文持续更新~</p>
 <hr>
@@ -110,7 +110,7 @@
 </blockquote>
 <h3 id="0X03-Python命令执行"><a href="#0X03-Python命令执行" class="headerlink" title="0X03 Python命令执行"></a>0X03 <strong>Python命令执行</strong></h3><p>下面是python中可用于命令执行的模块</p>
 <blockquote>
-<p>os<br>subprocess<br>commands<br>platform<br>timeit<br>mimetools<br>pickle<br>pydoc</p>
+<p>os<br>subprocess<br>commands<br>platform<br>timeit<br>pickle<br>pydoc</p>
 </blockquote>
 <p>举例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding:utf-8</span></div><div class="line"><span class="keyword">import</span> timeit</div><div class="line">timeit.timeit(<span class="string">"__import__('os').system('')"</span>, number=<span class="number">1</span>)</div></pre></td></tr></table></figure>
@@ -118,7 +118,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> os</div><div class="line">os.system()  </div><div class="line"><span class="keyword">print</span> os.popen().read()</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> subprocess</div><div class="line">subprocess.call([<span class="string">"cmd"</span>,<span class="string">"arg1"</span>,<span class="string">"arg2"</span>],shell=<span class="keyword">True</span>)</div><div class="line">subprocess.Popen(<span class="string">'ls'</span>, shell=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> commands</div><div class="line"><span class="keyword">print</span> commands.getoutput(<span class="string">'ls'</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> mimetools</div><div class="line">mimitools.pipeto(<span class="keyword">None</span>,<span class="string">'id'</span>) <span class="comment">#注意，mimetools模块的该方法在官方手册中被标记为从python2.3开始弃用，然而事实上在python2.7中仍然可以被使用</span></div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pydoc</div><div class="line">pydoc.pipepager(<span class="keyword">None</span>,<span class="string">'id'</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pickle</div><div class="line">pickle.loads(<span class="string">"cos\nsystem\n(S'ifconfig'\ntR."</span>)</div></pre></td></tr></table></figure>
 <p>上面列举的模块有几个很少见，导致在CTF中或沙盒中经常没有被过滤，最典型的就是mimetool模块，我做题至今暂未遇到过滤了该模块的，可以说是十分好用了。</p>
