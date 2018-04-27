@@ -180,7 +180,7 @@ th {
   padding: 0;
 }
 ::selection {
-  background: #000;
+  background: #1a6ea1;
   color: #fff;
 }
 body {
@@ -188,7 +188,7 @@ body {
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 14px;
   line-height: 2;
-  color: #fff;
+  color: #c6e2ff;
   background: #222;
 }
 @media (max-width: 767px) {
@@ -277,13 +277,13 @@ p {
   margin: 0 0 25px 0;
 }
 a {
-  color: #000;
+  color: #1a6ea1;
   text-decoration: none;
   border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 a:hover {
-  color: #fff;
+  color: #c6e2ff;
   border-bottom-color: #000;
 }
 blockquote {
@@ -835,7 +835,7 @@ pre .javascript .function {
   display: block;
   width: 22px;
   height: 2px;
-  background: #fff;
+  background: #c6e2ff;
   border-radius: 1px;
 }
 .btn-bar+.btn-bar {
@@ -932,7 +932,7 @@ pre .javascript .function {
   z-index: 1050;
   padding: 0 6px;
   width: 24px;
-  background: #000;
+  background: #1a6ea1;
   font-size: 12px;
   opacity: 1;
   color: #fff;
@@ -1331,7 +1331,7 @@ pre .javascript .function {
 .posts-expand .post-title-link {
   display: inline-block;
   position: relative;
-  color: #fff;
+  color: #c6e2ff;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1442,7 +1442,7 @@ pre .javascript .function {
   margin-top: 50px;
 }
 .post-button .btn {
-  color: #000;
+  color: #1a6ea1;
   font-size: 14px;
   background: transparent;
   border-radius: 0;
@@ -1483,11 +1483,11 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #000;
+  color: #1a6ea1;
   border-bottom: none;
 }
 .post-nav-item a:hover {
-  color: #fff;
+  color: #c6e2ff;
   border-bottom: none;
 }
 .post-nav-item a:active {
@@ -1560,7 +1560,7 @@ pre .javascript .function {
 }
 .sidebar a {
   color: #999;
-  border-bottom-color: #fff;
+  border-bottom-color: #c6e2ff;
 }
 .sidebar a:hover {
   color: #a4d3ee;
@@ -1693,7 +1693,7 @@ pre .javascript .function {
   vertical-align: middle;
   margin-right: 10px;
   margin-bottom: 10px;
-  border-bottom-color: #fff;
+  border-bottom-color: #c6e2ff;
   font-size: 13px;
 }
 .links-of-author a:before {
@@ -1704,7 +1704,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fbb5fb;
+  background: #09ff66;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1731,7 +1731,7 @@ pre .javascript .function {
   cursor: pointer;
   border-bottom: 1px solid transparent;
   font-size: 14px;
-  color: #fff;
+  color: #c6e2ff;
 }
 .sidebar-nav li:hover {
   color: #f5f5f5;
@@ -1781,7 +1781,7 @@ pre .javascript .function {
   transition-delay: 0s;
   transition-property: all;
   color: #999;
-  border-bottom-color: #fff;
+  border-bottom-color: #c6e2ff;
 }
 .post-toc ol a:hover {
   color: #9a32cd;
@@ -2274,7 +2274,7 @@ pre .javascript .function {
   width: 10px;
   height: 10px;
   opacity: 0.5;
-  background: #fff;
+  background: #c6e2ff;
   border: 1px solid #fff;
   border-radius: 50%;
 }
