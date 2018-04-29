@@ -84,17 +84,19 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
+<meta name="description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ysoserial源码分析(1)">
-<meta property="og:url" content="http://www.tharavel.site/2018/04/27/ysoserial-analysis1.html">
+<meta property="og:title" content="ysoserial源码分析(2)">
+<meta property="og:url" content="http://www.tharavel.site/2018/04/29/ysoserial-analysis2.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
-<meta property="og:updated_time" content="2018-04-29T08:12:10.181Z">
+<meta property="og:description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
+<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/picture/180429/3EfJiH2m8E.png">
+<meta property="og:updated_time" content="2018-04-29T08:28:20.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ysoserial源码分析(1)">
-<meta name="twitter:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
+<meta name="twitter:title" content="ysoserial源码分析(2)">
+<meta name="twitter:description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
+<meta name="twitter:image" content="http://op5cjcnmi.bkt.clouddn.com/picture/180429/3EfJiH2m8E.png">
 
 
 
@@ -122,13 +124,13 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-  <link rel="canonical" href="http://www.tharavel.site/2018/04/27/ysoserial-analysis1.html"/>
+  <link rel="canonical" href="http://www.tharavel.site/2018/04/29/ysoserial-analysis2.html"/>
 
 
 
 
 
-  <title>ysoserial源码分析(1) | tharavel's blog</title>
+  <title>ysoserial源码分析(2) | tharavel's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -311,7 +313,7 @@ border-left-color: #A349A4; /*左边框颜色*/
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2018/04/27/ysoserial-analysis1.html">
+    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2018/04/29/ysoserial-analysis2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tharavel">
@@ -332,7 +334,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
             
               
-                ysoserial源码分析(1)
+                ysoserial源码分析(2)
               
             
           </h2>
@@ -347,8 +349,8 @@ border-left-color: #A349A4; /*左边框颜色*/
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-27T15:21:48+08:00">
-                2018-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T16:05:15+08:00">
+                2018-04-29
               </time>
             
 
@@ -366,7 +368,7 @@ border-left-color: #A349A4; /*左边框颜色*/
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2018/04/27/ysoserial-analysis1.html#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2018/04/29/ysoserial-analysis2.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -392,40 +394,32 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
-        <p>一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。</p>
-<p>首先分析CommonsBeanutils1要用到的Gadgets类：</p>
-<h3 id="Gadgets-java："><a href="#Gadgets-java：" class="headerlink" title="Gadgets.java："></a>Gadgets.java：</h3><h4 id="createTemplatesImpl函数"><a href="#createTemplatesImpl函数" class="headerlink" title="createTemplatesImpl函数"></a>createTemplatesImpl函数</h4><p>由于CommonsBeanutils1只用到了createTemplatesImpl方法，所以这里只分析这个函数。该函数主要用来将payload动态写入类，再将类写入字节数组并返回。</p>
-<p>我们使用该函数时，是createTemplatesImpl(command)的形式，然后会调用<code>createTemplatesImpl ( final String command, Class&lt;T&gt; tplClass, Class&lt;?&gt; abstTranslet, Class&lt;?&gt; transFactory )</code>方法，在该方法里，首先实例化了<code>TemplatesImpl</code>类，之所以使用该类，是因为该类有个字段_bytecodes，可以用来存储对象转化成的字节数组，我们知道如果再将_bytecodes生成java实例，便可方便我们向漏洞程序传payload，而巧的是实现将字节数组转化成java实例的功能在该类中也有相应的实现，综上，<code>TemplatesImpl</code>成为本次利用的类。</p>
-<p>接下来就是利用了javassist的一系列类的特性，关于javassist，其实就是一个二方包，和反射功能相似，却比反射更强大，性能开销更低，详细了解可见：<a href="http://ju.outofmemory.cn/entry/79911" target="_blank" rel="external">http://ju.outofmemory.cn/entry/79911</a>。首先创建类池，然后把需要利用的类加载到搜索路径里，使用pool.get方法获取CtClassType类型的StubTransletPayload类，之后通过<code>clazz.makeClassInitializer().insertAfter(cmd);</code>往StubTransletPayload类的class里写入cmd。这里面的关键是makeClassInitializer函数，这个函数的作用返回一个CtConstructor类型的静态初始化器，如果不存在的话会新建一个，存在的话就返回。然后通过CtConstructor类的insertAfter方法写入cmd，接着使用serName方法产生一个随机值赋予CtClass的qualifiedName变量，对于这个变量，在源码注解中有一段说明：</p>
-<blockquote>
-<pre><code>* If the value of this field is not null, then all class
-* files modified by Javassist are saved under the directory
-* specified by this variable.  For example, if the value is
-* &lt;code&gt;&quot;./debug&quot;&lt;/code&gt;, then all class files are saved
-* there.  The directory name must not end with a directory
-* separator such as &lt;code&gt;/&lt;/code&gt;.
-*
-* &lt;p&gt;The default value is null.
-</code></pre></blockquote>
-<p>每次产生不同的值可以使得每次修改产生的class文件放到不同的目录，从而允许重复exploit。然后修改StubTransletPayload父类为abstTranslet，使用toBytecode方法把类导入字节数组。接着利用反射机制将该字节数组及Gadgets.class生成的字节数组所组成的数组赋值给_bytecodes（这里解释一下，ClassFiles.classAsBytes(Foo.class)操作的作用是找到Foo.class的外部类，这里是Gadgets.class，并将其写入字节数组）。最后的，设置TemplatesImpl的两个属性值（这两个属性值在后续调用链中会作为判断条件等，默认值为null，因此需要赋值），并返回TemplatesImpl的对象。</p>
-<h3 id="CommonsBeanutils1分析："><a href="#CommonsBeanutils1分析：" class="headerlink" title="CommonsBeanutils1分析："></a>CommonsBeanutils1分析：</h3><p>首先<code>Gadgets.createTemplatesImpl(command)</code>将command通过利用javassist包动态写入到字节数组中，并赋值给templates对象的_bytecodes属性，然后返回templates对象。</p>
-<p>在TemplatesImpl中存在以下调用链：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">TemplatesImpl.getOutputProperties()</div><div class="line">  TemplatesImpl.newTransformer()</div><div class="line">    TemplatesImpl.getTransletInstance()</div><div class="line">      TemplatesImpl.defineTransletClasses()</div><div class="line">        TemplatesImpl.TransletClassLoader</div><div class="line">         Class.newInstance()</div><div class="line">            Runtime.exec()</div></pre></td></tr></table></figure></p>
-<p>通过跟踪源码，我们很容易发现上面的调用链，在<code>getTransletInstance</code>方法中部分代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">private Translet getTransletInstance()</div><div class="line">        throws TransformerConfigurationException &#123;</div><div class="line">        try &#123;</div><div class="line">            if (_name == null) return null; //这就是设置_name值的原因</div><div class="line">            if (_class == null) defineTransletClasses(); //通过ClassLoader加载字节码，存储在_class数组中</div><div class="line">            // The translet needs to keep a reference to all its auxiliary</div><div class="line">            // class to prevent the GC from collecting them</div><div class="line">            AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance(); //新建实例，触发恶意代码</div><div class="line">            translet.postInitialization();</div><div class="line">            translet.setTemplates(this);</div><div class="line">            translet.setServicesMechnism(_useServicesMechanism);</div><div class="line">            translet.setAllowedProtocols(_accessExternalStylesheet);</div><div class="line">            if (_auxClasses != null) &#123;</div><div class="line">                translet.setAuxiliaryClasses(_auxClasses);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            return translet;</div><div class="line">        &#125;</div><div class="line">        ......</div></pre></td></tr></table></figure>
-<p>跟进<code>defineTransletClasses</code>会发现在里面使用了java.lang.ClassLoader.defineClass方法，这个方法我们知道可以从字节数组中读取出class类，而在这里<code>defineTransletClasses</code>方法也是通过defineClass方法来实现字节数组生成java类。接下来的<code>AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance();</code> 则将从字节数组中还原的类实例化，从而触发了恶意代码。</p>
-<p>现在条理已经很清晰，只要能够自动触发TemplatesImpl.getOutputProperties()方法执行，我们就能达到目的了。而这里，则利用了BeanComparator比较器来触发执行该方法。</p>
-<p>剩下的代码实质上就是把template对象放到PriorityQueue类里。我们来具体分析调用过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">final BeanComparator comparator = new BeanComparator(&quot;lowestSetBit&quot;);</div><div class="line"></div><div class="line">// create queue with numbers and basic comparator</div><div class="line">final PriorityQueue&lt;Object&gt; queue = new PriorityQueue&lt;Object&gt;(2, comparator);</div><div class="line">// stub data for replacement later</div><div class="line">queue.add(new BigInteger(&quot;1&quot;));</div><div class="line">queue.add(new BigInteger(&quot;1&quot;));</div><div class="line"></div><div class="line">// switch method called by comparator</div><div class="line">Reflections.setFieldValue(comparator, &quot;property&quot;, &quot;outputProperties&quot;);</div><div class="line"></div><div class="line">// switch contents of queue</div><div class="line">final Object[] queueArray = (Object[]) Reflections.getFieldValue(queue, &quot;queue&quot;);</div><div class="line">queueArray[0] = templates;</div><div class="line">queueArray[1] = templates;</div><div class="line"></div><div class="line">return queue;</div></pre></td></tr></table></figure></p>
-<p>我们的反序列化链利用的是PriorityQueue类，而放入PriorityQueue的对象需要满足两个条件：</p>
-<blockquote>
-<p>实现readObject方法<br>实现Comparable接口</p>
-</blockquote>
-<p>之前储存payload方法使用的<code>TemplatesImpl</code>类满足第一个条件，却不满足第二个，怎么办呢，如果我们直接queue.add(templates)，所造成的后果就是生成payload时会抛出异常。经过跟踪代码，我发现还有一个原因导致不能直接add(templates)，add方法调用了offer方法，不断跟踪offer方法的调用发现最终会触发<code>TemplatesImpl.getOutputProperties()</code>，这样就导致我们生成payload的过程中就会执行命令从而导致payload生成失败，这是显然是我们不希望看到的。</p>
-<p>所以代码这里首先实例化BeanComparator类，将property设置为<code>lowestSetBit</code>(这是BigInteger的一个可比较属性，这里也可设置为BigInteger类的其他的可比较属性)，接着<code>add(new BigInteger(&quot;1&quot;))</code>，这些都是为了满足这两个条件从而不让代码抛出异常。后面利用反射机制动态修改放入到PriorityQueue的对象，从而绕过了第二个条件的限制。</p>
-<p>我们看到代码这里利用反射机制将 Comparator的property 设置为 TemplatesImpl 的属性 outputProperties(在反序列化时会导致触发执行getOutputProperties()方法)，并获取了 PriorityQueue 的内置属性数组 queue，将 templates 按照索引值填入了 queue，然后返回PriorityQueue的实例化对象queue.</p>
-<p>至此payload的构成算是完毕，简单看一下payload是如何工作的：</p>
-<p>当我们的payload被漏洞程序反序列化时，调用了PriorityQueue的readObject() 函数，整个反序列化调用链如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ObjectInputStream.readObject</div><div class="line">    PriorityQueue.readObject</div><div class="line">        PriorityQueue.heapify</div><div class="line">            PriorityQueue.siftDown</div><div class="line">                PriorityQueue.siftDownUsingComparator</div><div class="line">                    BeanComparator.compare</div><div class="line">                        PropertyUtils.getProperty( o1, property )</div><div class="line">                            TemplatesImpl.getOutputProperties</div><div class="line">                                TemplatesImpl.newTransformer</div><div class="line">                                    TemplatesImpl.getTransletInstance</div><div class="line">                                      TemplatesImpl.defineTransletClasses</div><div class="line">                                        TemplatesImpl.TransletClassLoader.defineClass</div><div class="line">                                        Class.newInstance()</div><div class="line">                                            Runtime.exec()</div></pre></td></tr></table></figure></p>
-<p>通过该调用链，顺利执行了命令。</p>
-<p>这次分析先到这里，后面会抽空把其他payload分析一遍并发出来分享。</p>
+        <p>这次分析CommonsCollections1…</p>
+<h3 id="Gadgets-java："><a href="#Gadgets-java：" class="headerlink" title="Gadgets.java："></a>Gadgets.java：</h3><h4 id="createMemoitizedProxy函数"><a href="#createMemoitizedProxy函数" class="headerlink" title="createMemoitizedProxy函数"></a>createMemoitizedProxy函数</h4><p>还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了<code>createProxy(createMemoizedInvocationHandler(map), iface, ifaces)</code>方法，先看看<code>createMemoizedInvocationHandler(map)</code>，该方法通过反射return一个InvocationHandler类的实例，并将InvocationHandler类的属性memberValues赋值为map。creatProxy函数的主要作用就是创建动态代理，首先生成了一个数组allIfaces，allIfaces第一个值是iface，即传入createMemoitizedProxy的接口对象，比如CommonsCollections1中传入的是Map接口。如果传入了ifaces值，则使用System.arraycopy方法将ifaces的内容复制到allIfaces数组后面。</p>
+<p>最后，返回强制转换为map类型的map代理对象(class.cast方法的作用其实就是强制类型转换，这一点查看Class.cast源代码可以轻易看出)</p>
+<h3 id="CommonsCollections1分析："><a href="#CommonsCollections1分析：" class="headerlink" title="CommonsCollections1分析："></a>CommonsCollections1分析：</h3><p>首先实例化了ChainedTransformer类，并传入Transformer[]数组，里面包含<code>ConstantTransformer(1)</code>对象。接着又定义了一个Transformer[]数组，我们看看里面的元素，第一个是传入了<code>Runtime.class</code>的ConstantTransformer对象。后面三个都是InvokerTransformer对象，最后的ConstantTransformer(1)可有可无。</p>
+<p>ConstantTransformer类主要方法如下，其transform方法返回传入的常量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public ConstantTransformer(Object constantToReturn) &#123;</div><div class="line">        super();</div><div class="line">        iConstant = constantToReturn;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Transforms the input by ignoring it and returning the stored constant instead.</div><div class="line">     * </div><div class="line">     * @param input  the input object which is ignored</div><div class="line">     * @return the stored constant</div><div class="line">     */</div><div class="line">    public Object transform(Object input) &#123;</div><div class="line">        return iConstant;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>InvokerTransformer类主要方法如下，接收的参数分别是方法名，参数类型和参数值，其transform方法会利用反射执行传入的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public InvokerTransformer(String methodName, Class[] paramTypes, Object[] args) &#123;</div><div class="line">    super();</div><div class="line">    iMethodName = methodName;</div><div class="line">    iParamTypes = paramTypes;</div><div class="line">    iArgs = args;</div><div class="line">&#125;</div><div class="line">......</div><div class="line">    </div><div class="line">public Object transform(Object input) &#123;</div><div class="line">    if (input == null) &#123;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">    try &#123;</div><div class="line">        Class cls = input.getClass();</div><div class="line">        Method method = cls.getMethod(iMethodName, iParamTypes);</div><div class="line">        return method.invoke(input, iArgs);</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ChainedTransformer类主要方法如下，其transform方法会循环调用Transformer[]数组中存储的transformer对象的transform方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public ChainedTransformer(Transformer[] transformers) &#123;</div><div class="line">        super();</div><div class="line">        iTransformers = transformers;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">......</div><div class="line">    public Object transform(Object object) &#123;</div><div class="line">        for (int i = 0; i &lt; iTransformers.length; i++) &#123;</div><div class="line">            object = iTransformers[i].transform(object);</div><div class="line">        &#125;</div><div class="line">        return object;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>利用的关键在于InvokerTransformer类，因为它的transform方法使用了反射机制来执行传入的方法，我们可用通过这一点让其反射执行Runtime.getRuntime().exec()。ysoserial的代码中就构造了一个transform数组，将Runtime.getRuntime().exec(cmd)分解成几部分，第一部分为Runtime.class，保存在ConstantTransformer对象中，第二部分为getMethod,第三部分为invoke,第四部分为exec，后面三部分都保存在InvokerTransformer对象。怎么将这些transform类串起来执行呢，这就用到了ChainedTransformer的transform方法。</p>
+<p>如果我们把之前构造的数组作为ChainedTransformer的参数，再执行ChainedTransformer对象的transform方法，那么transform数组中所有的transform类的transform方法都会被依次执行，并且前一个数组元素执行的结果会作为参数传给下一个数组元素:<code>object = iTransformers[i].transform(object);</code></p>
+<p>我们分析一下调用链:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Runtime.class</div><div class="line">Runtime.class.getMethod(&quot;getRuntime&quot;)</div><div class="line">Runtime.class.getMethod(&quot;getRuntime&quot;).invoke()</div><div class="line">Runtime.class.getMethod(&quot;getRuntime&quot;).invoke().exec(cmd)</div></pre></td></tr></table></figure></p>
+<p>通过该调用链，可以成功执行命令。所以只要我们能够触发 ChainedTransformer 对象的 transform() 方法，就可造成命令执行。如何触发该方法呢，这里利用了LazyMap类，LazyMap有个 get 方法，源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public Object get(Object key) &#123;</div><div class="line">    // create value for key if key is not currently in the map</div><div class="line">    if (map.containsKey(key) == false) &#123;</div><div class="line">        Object value = factory.transform(key);</div><div class="line">        map.put(key, value);</div><div class="line">        return value;</div><div class="line">    &#125;</div><div class="line">    return map.get(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们看到，该方法里面调用了transform方法，如果factory为一个构造好的ChainedTransformer，即可执行exec()。那如何触发get方法呢，这就是后面一部分代码的作用。</p>
+<p>先是产生一个HashMap对象<code>innerMap</code>，然后调用了LazyMap.decorate(innerMap, transformerChain)方法，跟进该方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public static Map decorate(Map map, Transformer factory) &#123;</div><div class="line">        return new LazyMap(map, factory);</div><div class="line">    &#125;</div><div class="line">......</div><div class="line">protected LazyMap(Map map, Transformer factory) &#123;</div><div class="line">        super(map);</div><div class="line">        if (factory == null) &#123;</div><div class="line">            throw new IllegalArgumentException(&quot;Factory must not be null&quot;);</div><div class="line">        &#125;</div><div class="line">        this.factory = factory;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>在这里，我们已经成功把transformerChain赋值给了factory,只差执行get方法了。</p>
+<p>对于get方法的执行，实际上是利用了AnnotationInvocationHandler类，该类实现了InvocationHandler接口，可以代理其他对象。我们知道，被代理的对象进行方法调用时，会执行代理类的invoke()方法。而在AnnotationInvocationHandler类的invoke()方法中，存在对其memberValues的get()调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public Object invoke(Object obj, Method method, Object aobj[])</div><div class="line">&#123;</div><div class="line">    String s = method.getName();</div><div class="line">    Class aclass[] = method.getParameterTypes();</div><div class="line">    if(s.equals(&quot;equals&quot;) &amp;&amp; aclass.length == 1 &amp;&amp; aclass[0] == java/lang/Object)</div><div class="line">        return equalsImpl(aobj[0]);</div><div class="line">    if(aclass.length != 0)</div><div class="line">        throw new AssertionError(&quot;Too many parameters for an annotation method&quot;);</div><div class="line">    Object obj1 = s;</div><div class="line">    byte byte0 = -1;</div><div class="line">    </div><div class="line">    ......</div><div class="line">    </div><div class="line">    obj1 = memberValues.get(s); //这里存在对其memberValues执行get方法</div><div class="line">    if(obj1 == null)</div><div class="line">        throw new IncompleteAnnotationException(type, s);</div><div class="line">    if(obj1 instanceof ExceptionProxy)</div><div class="line">        throw ((ExceptionProxy)obj1).generateException();</div><div class="line">    if(obj1.getClass().isArray() &amp;&amp; Array.getLength(obj1) != 0)</div><div class="line">        obj1 = cloneArray(obj1);</div><div class="line">    return obj1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>源码继续往下分析，调用了<code>Gadgets.createMemoitizedProxy(lazyMap, Map.class)</code>，返回值是lazyMap被动态代理后的对象,并且InvocationHandler类的属性memberValues赋值为Lazymap对象。接着又将该对象传递到Gadgets.createMemoizedInvocationHandler方法中，返回的新的AnnotationInvocationHandler对象的memberValue的值为LazyMap的代理对象。（至于为什么要再次封装到AnnotationInvocationHandler里，下文有解释）</p>
+<p>最后，通过反射修改transformerChain对象的属性<code>iTransformers</code>值为transformers,然后返回handler。</p>
+<p>下面再分析一下反序列过程，看看payload如何触发执行的。</p>
+<p>老版本的AnnotationInvocationHandler的readObject()方法代码如下：  </p>
+<p><img src="http://op5cjcnmi.bkt.clouddn.com/picture/180429/3EfJiH2m8E.png" alt=""></p>
+<p>现在的AnnotationInvocationHandler的readObject()函数源码如下()：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">private void readObject(ObjectInputStream objectinputstream)</div><div class="line">    throws IOException, ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    java.io.ObjectInputStream.GetField getfield = objectinputstream.readFields();</div><div class="line">    Class class1 = (Class)getfield.get(&quot;type&quot;, null);</div><div class="line">    Map map = (Map)getfield.get(&quot;memberValues&quot;, null);</div><div class="line">    AnnotationType annotationtype = null;</div><div class="line">    try</div><div class="line">    &#123;</div><div class="line">        annotationtype = AnnotationType.getInstance(class1);</div><div class="line">    &#125;</div><div class="line">    catch(IllegalArgumentException illegalargumentexception)</div><div class="line">    &#123;</div><div class="line">        throw new InvalidObjectException(&quot;Non-annotation type in annotation serial stream&quot;);</div><div class="line">    &#125;</div><div class="line">    Map map1 = annotationtype.memberTypes();</div><div class="line">    LinkedHashMap linkedhashmap = new LinkedHashMap();</div><div class="line">    String s;</div><div class="line">    Object obj;</div><div class="line">    for(Iterator iterator = map.entrySet().iterator(); iterator.hasNext(); linkedhashmap.put(s, obj))</div><div class="line">    &#123;</div><div class="line">        java.util.Map.Entry entry = (java.util.Map.Entry)iterator.next();</div><div class="line">        s = (String)entry.getKey();</div><div class="line">        obj = null;</div><div class="line">        Class class2 = (Class)map1.get(s);</div><div class="line">        if(class2 == null)</div><div class="line">            continue;</div><div class="line">        obj = entry.getValue();</div><div class="line">        if(!class2.isInstance(obj) &amp;&amp; !(obj instanceof ExceptionProxy))</div><div class="line">            obj = (new AnnotationTypeMismatchExceptionProxy((new StringBuilder()).append(obj.getClass()).append(&quot;[&quot;).append(obj).append(&quot;]&quot;).toString())).setMember((Method)annotationtype.members().get(s));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    UnsafeAccessor.setType(this, class1);</div><div class="line">    UnsafeAccessor.setMemberValues(this, linkedhashmap);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>无论新老版本的代码，AnnotationInvocationHandler的readObject()函数中都对memberValues的调用了entrySet()函数。我们知道memberValues的值是LazyMap的代理对象，当代理对象调用任意方法时，实质是通过其AnnotationInvocationHandler的invoke方法执行，而invoke方法中又存在<code>memberValues.get(s)</code>，这里的memberValues是Lazymap对象，如此一来，顺利执行了LazyMap.get()方法。</p>
+<p>整理一下，整个过程的调用链如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">AnnotationInvocationHandler.readObject() // handler</div><div class="line">    AnnotationInvocationHandler.memberValues.entrySet() // memberValues值为LazyMap代理对象</div><div class="line">        AnnotationInvocationHandler.invoke() //此时的 AnnotationInvocationHandler是Gadgets.createMemoitizedProxy(lazyMap, Map.class)执行中所创建</div><div class="line">            AnnotationInvocationHandler.memberValues.get() //memberValues值为LazyMap对象</div><div class="line">                ChainedTransformer.transform()</div><div class="line">                    Runtime.class.getClass().getMethod(&quot;getRuntime&quot;).invoke().exec(cmd)</div></pre></td></tr></table></figure></p>
+<p>对于ChainedTransformer的触发，网上还有一种payload通过TransformMap来构造，TransformMap的checkSetValue方法也能够执行transform方法从而触发ChainedTransformer链，相关文章有很多，这里也不多说了。需要说明的是如今的AnnotationInvocationHandler类里面已经不存在对setValue函数的调用，甚至于删除了setValue函数，导致TransformMap方法已经不能用了。</p>
 
       
     </div>
@@ -472,18 +466,14 @@ border-left-color: #A349A4; /*左边框颜色*/
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/29/ysoserial-analysis2.html" rel="next" title="ysoserial源码分析(2)">
-                <i class="fa fa-chevron-left"></i> ysoserial源码分析(2)
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/23/command-execute.html" rel="prev" title="各种命令执行总结">
-                各种命令执行总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/27/ysoserial-analysis1.html" rel="prev" title="ysoserial源码分析(1)">
+                ysoserial源码分析(1) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -626,7 +616,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gadgets-java："><span class="nav-number">1.</span> <span class="nav-text">Gadgets.java：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#createTemplatesImpl函数"><span class="nav-number">1.1.</span> <span class="nav-text">createTemplatesImpl函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsBeanutils1分析："><span class="nav-number">2.</span> <span class="nav-text">CommonsBeanutils1分析：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gadgets-java："><span class="nav-number">1.</span> <span class="nav-text">Gadgets.java：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#createMemoitizedProxy函数"><span class="nav-number">1.1.</span> <span class="nav-text">createMemoitizedProxy函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsCollections1分析："><span class="nav-number">2.</span> <span class="nav-text">CommonsCollections1分析：</span></a></li></ol></div>
             
 
           </div>
