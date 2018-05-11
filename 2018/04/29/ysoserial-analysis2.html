@@ -84,18 +84,18 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
+<meta name="description" content="这次分析CommonsCollections1…，适用commons-collections:3.1 Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoize">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ysoserial源码分析(2)">
 <meta property="og:url" content="http://www.tharavel.site/2018/04/29/ysoserial-analysis2.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
+<meta property="og:description" content="这次分析CommonsCollections1…，适用commons-collections:3.1 Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoize">
 <meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/picture/180429/3EfJiH2m8E.png">
-<meta property="og:updated_time" content="2018-04-29T11:12:42.773Z">
+<meta property="og:updated_time" content="2018-05-03T07:19:53.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ysoserial源码分析(2)">
-<meta name="twitter:description" content="这次分析CommonsCollections1… Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoizedInvocationHandler(map)，该方">
+<meta name="twitter:description" content="这次分析CommonsCollections1…，适用commons-collections:3.1 Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, ifaces)方法，先看看createMemoize">
 <meta name="twitter:image" content="http://op5cjcnmi.bkt.clouddn.com/picture/180429/3EfJiH2m8E.png">
 
 
@@ -227,16 +227,6 @@ border-left-color: #A349A4; /*左边框颜色*/
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             友链
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -394,7 +384,7 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
-        <p>这次分析CommonsCollections1…</p>
+        <p>这次分析CommonsCollections1…，适用commons-collections:3.1</p>
 <h3 id="Gadgets-java："><a href="#Gadgets-java：" class="headerlink" title="Gadgets.java："></a>Gadgets.java：</h3><h4 id="createMemoitizedProxy函数"><a href="#createMemoitizedProxy函数" class="headerlink" title="createMemoitizedProxy函数"></a>createMemoitizedProxy函数</h4><p>还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了<code>createProxy(createMemoizedInvocationHandler(map), iface, ifaces)</code>方法，先看看<code>createMemoizedInvocationHandler(map)</code>，该方法通过反射return一个InvocationHandler类的实例，并将InvocationHandler类的属性memberValues赋值为map。creatProxy函数的主要作用就是创建动态代理，首先生成了一个数组allIfaces，allIfaces第一个值是iface，即传入createMemoitizedProxy的接口对象，比如CommonsCollections1中传入的是Map接口。如果传入了ifaces值，则使用System.arraycopy方法将ifaces的内容复制到allIfaces数组后面。</p>
 <p>最后，返回强制转换为map类型的map代理对象(class.cast方法的作用其实就是强制类型转换，这一点查看Class.cast源代码可以轻易看出)</p>
 <h3 id="CommonsCollections1分析："><a href="#CommonsCollections1分析：" class="headerlink" title="CommonsCollections1分析："></a>CommonsCollections1分析：</h3><p>首先实例化了ChainedTransformer类，并传入Transformer[]数组，里面包含<code>ConstantTransformer(1)</code>对象。接着又定义了一个Transformer[]数组，我们看看里面的元素，第一个是传入了<code>Runtime.class</code>的ConstantTransformer对象。后面三个都是InvokerTransformer对象，最后的ConstantTransformer(1)可有可无。</p>
@@ -407,7 +397,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 <p>通过该调用链，可以成功执行命令。所以只要我们能够触发 ChainedTransformer 对象的 transform() 方法，就可造成命令执行。如何触发该方法呢，这里利用了LazyMap类，LazyMap有个 get 方法，源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    <span class="comment">// create value for key if key is not currently in the map</span></div><div class="line">    <span class="keyword">if</span> (map.containsKey(key) == <span class="keyword">false</span>) &#123;</div><div class="line">        Object value = factory.transform(key);</div><div class="line">        map.put(key, value);</div><div class="line">        <span class="keyword">return</span> value;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> map.get(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们看到，该方法里面调用了transform方法，如果factory为一个构造好的ChainedTransformer，即可执行exec()。那如何触发get方法呢，这就是后面一部分代码的作用。</p>
 <p>先是产生一个HashMap对象<code>innerMap</code>，然后调用了LazyMap.decorate(innerMap, transformerChain)方法，跟进该方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map <span class="title">decorate</span><span class="params">(Map map, Transformer factory)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LazyMap(map, factory);</div><div class="line">    &#125;</div><div class="line">......</div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="title">LazyMap</span><span class="params">(Map map, Transformer factory)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(map);</div><div class="line">        <span class="keyword">if</span> (factory == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Factory must not be null"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">this</span>.factory = factory;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>在这里，我们已经成功把transformerChain赋值给了factory,只差执行get方法了。</p>
+<p>在这里，我们已经成功把transformerChain赋值给了factory,只差执行get方法了(在CommonCollection4中已经删除了decorate方法)。</p>
 <p>对于get方法的执行，实际上是利用了AnnotationInvocationHandler类，该类实现了InvocationHandler接口，可以代理其他对象。我们知道，被代理的对象进行方法调用时，会执行代理类的invoke()方法。而在AnnotationInvocationHandler类的invoke()方法中，存在对其memberValues的get()调用。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object obj, Method method, Object aobj[])</span></span></div><div class="line">&#123;</div><div class="line">    String s = method.getName();</div><div class="line">    Class aclass[] = method.getParameterTypes();</div><div class="line">    <span class="keyword">if</span>(s.equals(<span class="string">"equals"</span>) &amp;&amp; aclass.length == <span class="number">1</span> &amp;&amp; aclass[<span class="number">0</span>] == java/lang/Object)</div><div class="line">        <span class="keyword">return</span> equalsImpl(aobj[<span class="number">0</span>]);</div><div class="line">    <span class="keyword">if</span>(aclass.length != <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(<span class="string">"Too many parameters for an annotation method"</span>);</div><div class="line">    Object obj1 = s;</div><div class="line">    <span class="keyword">byte</span> byte0 = -<span class="number">1</span>;</div><div class="line">    </div><div class="line">    ......</div><div class="line">    </div><div class="line">    obj1 = memberValues.get(s); <span class="comment">//这里存在对其memberValues执行get方法</span></div><div class="line">    <span class="keyword">if</span>(obj1 == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IncompleteAnnotationException(type, s);</div><div class="line">    <span class="keyword">if</span>(obj1 <span class="keyword">instanceof</span> ExceptionProxy)</div><div class="line">        <span class="keyword">throw</span> ((ExceptionProxy)obj1).generateException();</div><div class="line">    <span class="keyword">if</span>(obj1.getClass().isArray() &amp;&amp; Array.getLength(obj1) != <span class="number">0</span>)</div><div class="line">        obj1 = cloneArray(obj1);</div><div class="line">    <span class="keyword">return</span> obj1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>源码继续往下分析，调用了<code>Gadgets.createMemoitizedProxy(lazyMap, Map.class)</code>，返回值是lazyMap被动态代理后的对象,并且InvocationHandler类的属性memberValues赋值为Lazymap对象。接着又将该对象传递到Gadgets.createMemoizedInvocationHandler方法中，返回的新的AnnotationInvocationHandler对象的memberValue的值为LazyMap的代理对象。（至于为什么要再次封装到AnnotationInvocationHandler里，下文有解释）</p>
@@ -419,7 +409,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream objectinputstream)</span></span></div><div class="line">    <span class="keyword">throws</span> IOException, ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    java.io.ObjectInputStream.GetField getfield = objectinputstream.readFields();</div><div class="line">    Class class1 = (Class)getfield.get(<span class="string">"type"</span>, <span class="keyword">null</span>);</div><div class="line">    Map map = (Map)getfield.get(<span class="string">"memberValues"</span>, <span class="keyword">null</span>);</div><div class="line">    AnnotationType annotationtype = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">try</span></div><div class="line">    &#123;</div><div class="line">        annotationtype = AnnotationType.getInstance(class1);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span>(IllegalArgumentException illegalargumentexception)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidObjectException(<span class="string">"Non-annotation type in annotation serial stream"</span>);</div><div class="line">    &#125;</div><div class="line">    Map map1 = annotationtype.memberTypes();</div><div class="line">    LinkedHashMap linkedhashmap = <span class="keyword">new</span> LinkedHashMap();</div><div class="line">    String s;</div><div class="line">    Object obj;</div><div class="line">    <span class="keyword">for</span>(Iterator iterator = map.entrySet().iterator(); iterator.hasNext(); linkedhashmap.put(s, obj))</div><div class="line">    &#123;</div><div class="line">        java.util.Map.Entry entry = (java.util.Map.Entry)iterator.next();</div><div class="line">        s = (String)entry.getKey();</div><div class="line">        obj = <span class="keyword">null</span>;</div><div class="line">        Class class2 = (Class)map1.get(s);</div><div class="line">        <span class="keyword">if</span>(class2 == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        obj = entry.getValue();</div><div class="line">        <span class="keyword">if</span>(!class2.isInstance(obj) &amp;&amp; !(obj <span class="keyword">instanceof</span> ExceptionProxy))</div><div class="line">            obj = (<span class="keyword">new</span> AnnotationTypeMismatchExceptionProxy((<span class="keyword">new</span> StringBuilder()).append(obj.getClass()).append(<span class="string">"["</span>).append(obj).append(<span class="string">"]"</span>).toString())).setMember((Method)annotationtype.members().get(s));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    UnsafeAccessor.setType(<span class="keyword">this</span>, class1);</div><div class="line">    UnsafeAccessor.setMemberValues(<span class="keyword">this</span>, linkedhashmap);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>无论新老版本的代码，AnnotationInvocationHandler的readObject()函数中都对memberValues的调用了entrySet()函数。我们知道memberValues的值是LazyMap的代理对象，当代理对象调用任意方法时，实质是通过其AnnotationInvocationHandler的invoke方法执行，而invoke方法中又存在<code>memberValues.get(s)</code>，这里的memberValues是Lazymap对象，如此一来，顺利执行了LazyMap.get()方法。</p>
 <p>整理一下，整个过程的调用链如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">AnnotationInvocationHandler.readObject() <span class="comment">// handler</span></div><div class="line">    AnnotationInvocationHandler.memberValues.entrySet() <span class="comment">// memberValues值为LazyMap代理对象</span></div><div class="line">        AnnotationInvocationHandler.invoke() <span class="comment">//此时的 AnnotationInvocationHandler是Gadgets.createMemoitizedProxy(lazyMap, Map.class)执行中所创建</span></div><div class="line">            AnnotationInvocationHandler.memberValues.get() <span class="comment">//memberValues值为LazyMap对象</span></div><div class="line">                ChainedTransformer.transform()</div><div class="line">                    Runtime.class.getClass().getMethod(<span class="string">"getRuntime"</span>).invoke().exec(cmd)</div></pre></td></tr></table></figure></p>
-<p>对于ChainedTransformer的触发，网上还有一种payload通过TransformMap来构造，TransformMap的checkSetValue方法也能够执行transform方法从而触发ChainedTransformer链，相关文章有很多，这里也不多说了。需要说明的是如今的AnnotationInvocationHandler类里面已经不存在对setValue函数的调用，甚至于删除了setValue函数，导致TransformMap方法已经不能用了。</p>
+<p>对于ChainedTransformer的触发，网上还有一种payload通过TransformMap来构造，TransformMap的checkSetValue方法也能够执行transform方法从而触发ChainedTransformer链，相关文章有很多，这里也不多说了。</p>
 
       
     </div>
@@ -465,6 +455,10 @@ border-left-color: #A349A4; /*左边框颜色*/
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/ysoserial-analysis3.html" rel="next" title="ysoserial源码分析(3)">
+                <i class="fa fa-chevron-left"></i> ysoserial源码分析(3)
+              </a>
             
           </div>
 
@@ -549,8 +543,8 @@ border-left-color: #A349A4; /*左边框颜色*/
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">4</span>
+              <a href="/">
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

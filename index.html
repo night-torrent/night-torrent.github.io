@@ -229,16 +229,6 @@ border-left-color: #A349A4; /*左边框颜色*/
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
@@ -301,6 +291,136 @@ border-left-color: #A349A4; /*左边框颜色*/
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2018/05/01/ysoserial-analysis3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tharavel">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tharavel's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/01/ysoserial-analysis3.html" itemprop="url">
+                  ysoserial源码分析(3)
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T11:57:23+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          CommonsCollections2分析：CommonsCollections2和和CommonsBeanutils1一样也使用了比较器去触发TemplatesImpl的newTransformer方法执行命令。这里用到的比较器为TransformingComparator，主要利用了其compa
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/01/ysoserial-analysis3.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+	
+	<div>
+	  
+	</div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -387,8 +507,8 @@ border-left-color: #A349A4; /*左边框颜色*/
       
         
           
-          这次分析CommonsCollections1…
-Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocationHandler(map), iface, if
+          这次分析CommonsCollections1…，适用commons-collections:3.1
+Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用到的其他文件中的函数。 该函数调用了createProxy(createMemoizedInvocat
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -518,9 +638,9 @@ Gadgets.java：createMemoitizedProxy函数还是和以前一样，先解释用�
       
         
           
-          一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。
+          一直觉得阅读好的代码对个人的编程能力帮助很大，最近在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。
 首先分析CommonsBeanutils1要用到的Gadgets类：
-Gadgets
+Gadgets.j
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -875,8 +995,8 @@ Gadgets
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">4</span>
+              <a href="/">
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

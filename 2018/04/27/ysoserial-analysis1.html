@@ -84,17 +84,17 @@ border-left-color: #A349A4; /*左边框颜色*/
 
 
 
-<meta name="description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
+<meta name="description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了cr">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ysoserial源码分析(1)">
 <meta property="og:url" content="http://www.tharavel.site/2018/04/27/ysoserial-analysis1.html">
 <meta property="og:site_name" content="tharavel's blog">
-<meta property="og:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
-<meta property="og:updated_time" content="2018-04-29T11:17:54.700Z">
+<meta property="og:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了cr">
+<meta property="og:updated_time" content="2018-05-11T00:50:12.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ysoserial源码分析(1)">
-<meta name="twitter:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了">
+<meta name="twitter:description" content="一直觉得阅读好的代码对个人的编程能力帮助很大，最近在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。 首先分析CommonsBeanutils1要用到的Gadgets类： Gadgets.java：createTemplatesImpl函数由于CommonsBeanutils1只用到了cr">
 
 
 
@@ -225,16 +225,6 @@ border-left-color: #A349A4; /*左边框颜色*/
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             友链
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -392,7 +382,7 @@ border-left-color: #A349A4; /*左边框颜色*/
       
 
       
-        <p>一直觉得阅读好的代码对个人的编程能力帮助很大，最近一直在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。</p>
+        <p>一直觉得阅读好的代码对个人的编程能力帮助很大，最近在学习java安全，于是选择ysoserial这一个很有名气的工具进行分析，来丰富和扩展自己的见识，在完整地分析完其中的一个payload后，我也确实收获良多。</p>
 <p>首先分析CommonsBeanutils1要用到的Gadgets类：</p>
 <h3 id="Gadgets-java："><a href="#Gadgets-java：" class="headerlink" title="Gadgets.java："></a>Gadgets.java：</h3><h4 id="createTemplatesImpl函数"><a href="#createTemplatesImpl函数" class="headerlink" title="createTemplatesImpl函数"></a>createTemplatesImpl函数</h4><p>由于CommonsBeanutils1只用到了createTemplatesImpl方法，所以这里只分析这个函数。该函数主要用来将payload动态写入类，再将类写入字节数组并返回。</p>
 <p>我们使用该函数时，是createTemplatesImpl(command)的形式，然后会调用<code>createTemplatesImpl ( final String command, Class&lt;T&gt; tplClass, Class&lt;?&gt; abstTranslet, Class&lt;?&gt; transFactory )</code>方法，在该方法里，首先实例化了<code>TemplatesImpl</code>类，之所以使用该类，是因为该类有个字段_bytecodes，可以用来存储对象转化成的字节数组，我们知道如果再将_bytecodes生成java实例，便可方便我们向漏洞程序传payload，而巧的是实现将字节数组转化成java实例的功能在该类中也有相应的实现，综上，<code>TemplatesImpl</code>成为本次利用的类。</p>
@@ -415,7 +405,8 @@ border-left-color: #A349A4; /*左边框颜色*/
 <p>跟进<code>defineTransletClasses</code>会发现在里面使用了java.lang.ClassLoader.defineClass方法，这个方法我们知道可以从字节数组中读取出class类，而在这里<code>defineTransletClasses</code>方法也是通过defineClass方法来实现字节数组生成java类。接下来的<code>AbstractTranslet translet = (AbstractTranslet) _class[_transletIndex].newInstance();</code> 则将从字节数组中还原的类实例化，从而触发了恶意代码。</p>
 <p>现在条理已经很清晰，只要能够自动触发TemplatesImpl.getOutputProperties()方法执行，我们就能达到目的了。而这里，则利用了BeanComparator比较器来触发执行该方法。</p>
 <p>剩下的代码实质上就是把template对象放到PriorityQueue类里。我们来具体分析调用过程：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> BeanComparator comparator = <span class="keyword">new</span> BeanComparator(<span class="string">"lowestSetBit"</span>);</div><div class="line"></div><div class="line"><span class="comment">// create queue with numbers and basic comparator</span></div><div class="line"><span class="keyword">final</span> PriorityQueue&lt;Object&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;Object&gt;(<span class="number">2</span>, comparator);</div><div class="line"><span class="comment">// stub data for replacement later</span></div><div class="line">queue.add(<span class="keyword">new</span> BigInteger(<span class="string">"1"</span>));</div><div class="line">queue.add(<span class="keyword">new</span> BigInteger(<span class="string">"1"</span>));</div><div class="line"></div><div class="line"><span class="comment">// switch method called by comparator</span></div><div class="line">Reflections.setFieldValue(comparator, <span class="string">"property"</span>, <span class="string">"outputProperties"</span>);</div><div class="line"></div><div class="line"><span class="comment">// switch contents of queue</span></div><div class="line"><span class="keyword">final</span> Object[] queueArray = (Object[]) Reflections.getFieldValue(queue, <span class="string">"queue"</span>);</div><div class="line">queueArray[<span class="number">0</span>] = templates;</div><div class="line">queueArray[<span class="number">1</span>] = templates;</div><div class="line"></div><div class="line"><span class="keyword">return</span> queue;</div></pre></td></tr></table></figure></p>
-<p>我们的反序列化链利用的是PriorityQueue类，而放入PriorityQueue的对象需要满足两个条件：</p>
+<p>我们的反序列化链利用的是PriorityQueue类，利用到的方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">PriorityQueue</span><span class="params">(<span class="keyword">int</span> i, Comparator comparator1)</span></span></div><div class="line">&#123;</div><div class="line">    size = <span class="number">0</span>;</div><div class="line">    modCount = <span class="number">0</span>;</div><div class="line">    <span class="keyword">if</span>(i &lt; <span class="number">1</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</div><div class="line">    &#125; <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        queue = <span class="keyword">new</span> Object[i];</div><div class="line">        comparator = comparator1;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream objectinputstream)</span></span></div><div class="line">    <span class="keyword">throws</span> IOException, ClassNotFoundException</div><div class="line">&#123;</div><div class="line">    objectinputstream.defaultReadObject();</div><div class="line">    objectinputstream.readInt();</div><div class="line">    SharedSecrets.getJavaOISAccess().checkArray(objectinputstream, [Ljava/lang/Object;, size);</div><div class="line">    queue = <span class="keyword">new</span> Object[size];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</div><div class="line">        queue[i] = objectinputstream.readObject();</div><div class="line"></div><div class="line">    heapify();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而放入PriorityQueue的对象需要满足两个条件：</p>
 <blockquote>
 <p>实现readObject方法<br>实现Comparable接口</p>
 </blockquote>
@@ -425,7 +416,7 @@ border-left-color: #A349A4; /*左边框颜色*/
 <p>至此payload的构成算是完毕，简单看一下payload是如何工作的：</p>
 <p>当我们的payload被漏洞程序反序列化时，调用了PriorityQueue的readObject() 函数，整个反序列化调用链如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">ObjectInputStream.readObject</div><div class="line">    PriorityQueue.readObject</div><div class="line">        PriorityQueue.heapify</div><div class="line">            PriorityQueue.siftDown</div><div class="line">                PriorityQueue.siftDownUsingComparator</div><div class="line">                    BeanComparator.compare</div><div class="line">                        PropertyUtils.getProperty( o1, property )</div><div class="line">                            TemplatesImpl.getOutputProperties</div><div class="line">                                TemplatesImpl.newTransformer</div><div class="line">                                    TemplatesImpl.getTransletInstance</div><div class="line">                                      TemplatesImpl.defineTransletClasses</div><div class="line">                                        TemplatesImpl.TransletClassLoader.defineClass</div><div class="line">                                        Class.newInstance()</div><div class="line">                                            Runtime.exec()</div></pre></td></tr></table></figure></p>
 <p>通过该调用链，顺利执行了命令。</p>
-<p>这次分析先到这里，后面会抽空把其他payload分析一遍并发出来分享。</p>
+<p>这次分析先到这里，后面会抽空把其他payload分析一遍。</p>
 
       
     </div>
@@ -559,8 +550,8 @@ border-left-color: #A349A4; /*左边框颜色*/
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">4</span>
+              <a href="/">
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
